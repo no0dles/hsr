@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "strict": true,
+    "composite": true,
+    "declaration": true,
+    "outDir": "dist/node",
+    "strictNullChecks": true,
+    "types": ["@types/node"],
+    "lib": ["es6"],
+    "rootDir": "packages/node",
+    "baseUrl": "packages/node",
+    "tsBuildInfoFile": "dist/server.tsbuildinfo"
+  },
+  "references": [
+    {
+      "path": "./tsconfig.client.json"
+    }
+  ],
+  "include": ["packages/node/**/*"],
+  "exclude": [
+    "./**/*.spec.ts",
+    "./packages/browser",
+    "dist",
+    "coverage",
+    "node_modules",
+    "jest.config.ts"
+  ]
+}

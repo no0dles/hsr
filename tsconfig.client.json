@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "module": "ES2015",
+    "target": "ES2015",
+    "strict": true,
+    "composite": true,
+    "outDir": "dist/browser",
+    "strictNullChecks": true,
+    "lib": ["dom", "es6"],
+    "types": [],
+    "rootDir": "packages/browser",
+    "baseUrl": "packages/browser",
+    "tsBuildInfoFile": "dist/client.tsbuildinfo"
+  },
+  "include": ["packages/browser/**/*"],
+  "exclude": [
+    "dist",
+    "packages/node",
+    "**/*.spec.ts",
+    "coverage",
+    "node_modules",
+    "jest.config.ts"
+  ]
+}

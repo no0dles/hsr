@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "module": "ES2015",
+    "target": "ES2015",
+    "strict": true,
+    "composite": true,
+    "declaration": true,
+    "outDir": "dist/test",
+    "lib": ["es6", "dom"],
+    "strictNullChecks": true,
+    "types": ["@types/node"],
+    "rootDir": "packages",
+    "baseUrl": "packages",
+    "tsBuildInfoFile": "dist/test.tsbuildinfo"
+  },
+  "references": [
+    {
+      "path": "./tsconfig.client.json"
+    },
+    {
+      "path": "./tsconfig.server.json"
+    }
+  ],
+  "include": ["packages/**/*.spec"],
+  "exclude": [
+    "dist",
+    "coverage",
+    "node_modules",
+    "jest.config.ts"
+  ]
+}

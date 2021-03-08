@@ -1,9 +1,9 @@
 {
-  "name": "node-http-router",
+  "name": "hsr",
   "version": "1.0.0",
   "scripts": {
     "test": "jest",
-    "build": "tsc"
+    "build": "tsc -b"
   },
   "devDependencies": {
     "@types/jest": "^26.0.20",

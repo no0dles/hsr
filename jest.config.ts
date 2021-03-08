@@ -6,11 +6,11 @@ const config: Config.InitialOptions = {
     '^.+\\.ts$': 'ts-jest',
   },
   testTimeout: 25000,
-  testRegex: 'src/.*.spec.ts',
+  testRegex: 'packages/.*.spec.ts',
   testEnvironment: 'node',
   collectCoverage: true,
   coverageDirectory: '<rootDir>/coverage/',
-  collectCoverageFrom: ['src/**', '!dist/**', '!coverage/**', '!src/**/*.spec.ts'],
+  collectCoverageFrom: ['packages/**', '!dist/**', '!coverage/**', '!packages/**/*.spec.ts'],
   coverageReporters: ['json', 'html', 'lcov'],
 }
 
