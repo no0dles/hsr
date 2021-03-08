@@ -1,10 +1,9 @@
-import { HttpClient } from './http-client'
-import { HttpClientResponse } from './http-client-response'
+import { HttpClient } from '../http-client'
+import { HttpClientResponse } from '../http-client-response'
 import { Server } from 'http'
-import { HttpClientImpl } from './http-client-impl'
-import { Readable } from 'stream'
-import { HttpClientPlugin } from './http-client-plugin'
-import { NodeHttpAdapter } from './node/http-node-adapter'
+import { HttpClientImpl } from '../http-client-impl'
+import { HttpClientPlugin } from '../http-client-plugin'
+import { NodeHttpAdapter } from './http-node-adapter'
 
 export interface HttpRouterConfig {
   query: { [key: string]: string | string[] }

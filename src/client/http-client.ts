@@ -1,4 +1,3 @@
-import { Readable } from 'stream'
 import { HttpClientPlugin } from './http-client-plugin'
 
 export interface HttpClient<TResponse> {
@@ -6,7 +5,7 @@ export interface HttpClient<TResponse> {
 
   header(name: string, value: string | string[]): this
 
-  body(body: string | Buffer | Readable): HttpClient<TResponse>
+  body(body: string | Buffer): HttpClient<TResponse>
 
   options(path?: string): Promise<TResponse>
 

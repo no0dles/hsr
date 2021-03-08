@@ -1,7 +1,7 @@
 import { HttpRouter } from '../../server/http-router'
 import { HttpClient } from '../http-client'
 import { HttpClientImpl } from '../http-client-impl'
-import { HttpRouterClientImpl } from '../http-router-client-impl'
+import { HttpRouterClientImpl } from './http-router-client-impl'
 import { HttpClientResponse } from '../http-client-response'
 import { getServer } from '../../server/server'
 import { NodeHttpAdapter } from './http-node-adapter'

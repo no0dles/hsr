@@ -35,10 +35,6 @@ export class HttpRequestImpl implements HttpRequest {
     return readableToBuffer(this.message)
   }
 
-  bodyAsStream(): Readable {
-    return this.message
-  }
-
   async bodyAsString(encoding?: BufferEncoding): Promise<string> {
     const buffer = await this.bodyAsBuffer()
     return buffer.toString(encoding)

@@ -1,8 +1,4 @@
-//import { Readable } from 'stream'
-
 export interface HttpMessage {
-  //bodyAsStream(): Readable
-
   bodyAsBuffer(): Promise<Buffer>
 
   bodyAsString(): Promise<string>
