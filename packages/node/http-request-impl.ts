@@ -55,51 +55,8 @@ export class HttpRequestImpl implements HttpRequest {
     return header.join(', ')
   }
 
-  private response(statusCode: number, body?: any): HttpResponse {
-    if (!body) {
-      return {
-        statusCode,
-      }
-    }
-
-    if (typeof body === 'string' || body instanceof Buffer || body instanceof Readable) {
-      return {
-        statusCode,
-        body,
-      }
-    }
-
-    return {
-      statusCode,
-      body: JSON.stringify(body),
-    }
-  }
-
-  accepted(body?: any): HttpResponse {
-    return this.response(202, body)
-  }
-
-  badRequest(body?: any): HttpResponse {
-    return this.response(400, body)
-  }
-
-  created(body?: any): HttpResponse {
-    return this.response(201, body)
-  }
-
-  forbidden(body?: any): HttpResponse {
-    return this.response(403, body)
-  }
-
-  notFound(body?: any): HttpResponse {
-    return this.response(404, body)
-  }
-
-  ok(body?: any): HttpResponse {
-    return this.response(200, body)
-  }
-
-  unauthorized(body?: any): HttpResponse {
-    return this.response(401, body)
+  async bodyAsJson<T = unknown>(): Promise<T> {
+    const string = await this.bodyAsString()
+    return JSON.parse(string)
   }
 }

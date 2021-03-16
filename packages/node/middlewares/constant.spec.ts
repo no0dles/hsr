@@ -5,9 +5,9 @@ import { nodeClient } from '../node-client'
 describe('plugins/constant', () => {
   it('should', async () => {
     const app = router()
-    app.use(constant('magicValue', 42)).get((req) => {
+    app.use(constant('magicValue', 42)).get((req, res) => {
       expect(req.constant.magicValue).toEqual(42)
-      return req.ok()
+      return res
     })
     const cli = nodeClient(app)
     const res = await cli.get()

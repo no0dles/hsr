@@ -32,6 +32,9 @@ export class BrowserHttpAdapter implements HttpAdapter {
       bodyAsString(): Promise<string> {
         return res.text()
       },
+      bodyAsJson<T = unknown>(): Promise<T> {
+        return res.json()
+      }
     }
   }
 }

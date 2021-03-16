@@ -31,18 +31,14 @@ export interface HttpRequiredBearerAuthenticationRequest<TPayload> extends HttpR
   auth: BearerAuthentication<TPayload>
 }
 
-export type HttpBearerAuthenticationMiddleware<TPayload> = HttpMiddleware<
-  HttpRequest,
+export type HttpBearerAuthenticationMiddleware<TPayload> = HttpMiddleware<HttpRequest,
   HttpResponse,
   HttpBearerAuthenticationRequest<TPayload>,
-  HttpResponse
->
-export type HttpRequiredBearerAuthenticationMiddleware<TPayload> = HttpMiddleware<
-  HttpRequest,
+  HttpResponse>
+export type HttpRequiredBearerAuthenticationMiddleware<TPayload> = HttpMiddleware<HttpRequest,
   HttpResponse,
   HttpRequiredBearerAuthenticationRequest<TPayload>,
-  HttpResponse
->
+  HttpResponse>
 
 export interface BearerAuthenticationOptions {
   required: true
@@ -50,10 +46,10 @@ export interface BearerAuthenticationOptions {
 
 export function bearerAuthentication<TPayload = BearerTokenPayload>(): HttpBearerAuthenticationMiddleware<TPayload>
 export function bearerAuthentication<TPayload = BearerTokenPayload>(
-  options: BearerAuthenticationOptions
+  options: BearerAuthenticationOptions,
 ): HttpRequiredBearerAuthenticationMiddleware<TPayload>
 export function bearerAuthentication<TPayload = BearerTokenPayload>(
-  options?: BearerAuthenticationOptions
+  options?: BearerAuthenticationOptions,
 ): HttpBearerAuthenticationMiddleware<TPayload> {
   return async (ctx) => {
     const authorizationHeader = ctx.req.header('authorization')
@@ -63,7 +59,8 @@ export function bearerAuthentication<TPayload = BearerTokenPayload>(
       const tokenParts = token.split('.')
 
       if (tokenParts.length !== 3) {
-        return ctx.req.badRequest({message:'invalid header format'})
+        return ctx.res.statusCode(400)
+          .json({ message: 'invalid header format' })
       }
 
       try {
@@ -73,18 +70,18 @@ export function bearerAuthentication<TPayload = BearerTokenPayload>(
           signature: tokenParts[2],
         }
       } catch (e) {
-        return ctx.req.badRequest({ message: 'invalid header' })
+        return ctx.res.statusCode(400).json({ message: 'invalid header' })
       }
     }
 
     if (options?.required && !auth) {
-      return ctx.req.unauthorized({
+      return ctx.res.statusCode(401).json({
         message: 'missing bearer auth',
       })
     }
 
     const newReq = ctx.req as HttpBearerAuthenticationRequest<TPayload>
     newReq.auth = auth
-    return ctx.next(newReq)
+    return ctx.next(newReq, ctx.res)
   }
 }

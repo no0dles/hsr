@@ -8,9 +8,9 @@ describe('plugins/bearer-authentication', () => {
     app
       .use(bearerAuthentication())
       .path('api/todo')
-      .get((req) => {
+      .get((req, res) => {
         expect(req.auth).toEqual(null)
-        return req.ok()
+        return res
       })
     const cli = nodeClient(app)
     const res = await cli
@@ -24,9 +24,9 @@ describe('plugins/bearer-authentication', () => {
     app
       .use(bearerAuthentication({required:true}))
       .path('api/todo')
-      .get((req) => {
+      .get((req, res) => {
         expect(req.auth).toEqual(null)
-        return req.ok()
+        return res
       })
     const cli = nodeClient(app)
     const res = await cli
@@ -40,13 +40,13 @@ describe('plugins/bearer-authentication', () => {
     app
       .use(bearerAuthentication())
       .path('api/todo')
-      .get((req) => {
+      .get((req, res) => {
         expect(req.auth).toEqual({
           header: { alg: 'HS256', typ: 'JWT' },
           payload: { sub: '1234567890', name: 'John Doe', iat: 1516239022 },
           signature: 'SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
         })
-        return req.ok()
+        return res
       })
     const cli = nodeClient(app)
     await cli
@@ -63,9 +63,9 @@ describe('plugins/bearer-authentication', () => {
     app
       .use(bearerAuthentication())
       .path('api/todo')
-      .get((req) => {
+      .get((req, res) => {
         expect(req.auth).toEqual(null)
-        return req.ok()
+        return res
       })
     const cli = nodeClient(app)
     const res = await cli
@@ -83,9 +83,9 @@ describe('plugins/bearer-authentication', () => {
     app
       .use(bearerAuthentication())
       .path('api/todo')
-      .get((req) => {
+      .get((req, res) => {
         expect(req.auth).toEqual(null)
-        return req.ok()
+        return res
       })
     const cli = nodeClient(app)
     const res = await cli

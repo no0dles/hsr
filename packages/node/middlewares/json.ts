@@ -15,6 +15,6 @@ export function jsonBody(): HttpBodyMiddleware {
       const data = await ctx.req.bodyAsString()
       return JSON.parse(data)
     }
-    return ctx.next(newReq)
+    return ctx.next(newReq, ctx.res)
   }
 }

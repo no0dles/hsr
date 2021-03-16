@@ -5,7 +5,7 @@ import { HttpClientPlugin } from './http-client-plugin'
 import { HttpAdapter } from './http-adapter'
 
 export interface HttpClientConfig {
-  baseUrl?: string
+  baseUrl: string
   paths: string[]
   body: string | null
   query: { [key: string]: string | string[] }

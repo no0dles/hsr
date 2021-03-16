@@ -1,7 +1,7 @@
-import { HttpResponse } from './http-response'
 import { HttpRequest } from './http-request'
 
-export interface HttpMiddlewareContext<TInputReq extends HttpRequest, TOutputReq extends HttpRequest> {
+export interface HttpMiddlewareContext<TInputReq extends HttpRequest, TOutputReq extends HttpRequest, TInputRes, TOutputRes> {
   req: TInputReq
-  next: (req: TOutputReq) => Promise<HttpResponse>
+  res: TInputRes
+  next: (req: TOutputReq, res: TOutputRes) => Promise<TOutputRes>
 }

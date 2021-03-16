@@ -1,3 +1,3 @@
 export interface HttpHandler<TReq, TRes, TParams> {
-  (req: TReq, params: TParams): Promise<TRes> | TRes
+  (req: TReq, res: TRes, params: TParams): Promise<TRes> | TRes
 }

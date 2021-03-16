@@ -8,9 +8,9 @@ describe('server/http-tree', () => {
       .path('api')
       .path('todo')
       .param('id')
-      .get(async (req, params) => {
+      .get(async (req,res,  params) => {
         expect(params.id).toEqual('1')
-        return req.ok('todo')
+        return res.body('todo')
       })
     const cli = nodeClient(app)
     const res = await cli.path('/api/todo/1').get()
@@ -20,7 +20,7 @@ describe('server/http-tree', () => {
 
   it('should handle multiple path segements', async () => {
     const app = router()
-    app.path('api/todo').get((req) => req.ok())
+    app.path('api/todo').get((req, res) => res)
     const cli = nodeClient(app)
     const res = await cli.path('/api/todo').get()
     expect(res.statusCode).toEqual(200)

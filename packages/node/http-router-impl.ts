@@ -10,11 +10,12 @@ export class HttpRouterImpl implements HttpRouter<any, any, any> {
   constructor(
     private tree: HttpTree,
     private pathSegments: PathSegment[],
-    private middlewares: HttpMiddleware<any, any, any, any>[]
-  ) {}
+    private middlewares: HttpMiddleware<any, any, any, any>[],
+  ) {
+  }
 
   use<TNewReq extends HttpRequest, TNewRes>(
-    middlewareOrPath: HttpMiddleware<any, any, any, any>
+    middlewareOrPath: HttpMiddleware<any, any, any, any>,
   ): HttpRouter<TNewReq, TNewRes, any> {
     return new HttpRouterImpl(this.tree, [...this.pathSegments], [...this.middlewares, middlewareOrPath])
   }
@@ -37,12 +38,16 @@ export class HttpRouterImpl implements HttpRouter<any, any, any> {
           type: 'param',
         },
       ],
-      [...this.middlewares]
+      [...this.middlewares],
     )
   }
 
   path(path: string): HttpRouter<any, any, any> {
-    return new HttpRouterImpl(this.tree, this.getPathSegment(path), [...this.middlewares])
+    const segments = this.getPathSegment(path)
+    if (segments.length === 0) {
+      return this
+    }
+    return new HttpRouterImpl(this.tree, segments, [...this.middlewares])
   }
 
   delete(handler: HttpHandler<any, any, any>): void {
@@ -65,8 +70,8 @@ export class HttpRouterImpl implements HttpRouter<any, any, any> {
     this.tree.register(this.pathSegments, 'PUT', handler, this.middlewares)
   }
 
-  async handle(request: HttpRequest): Promise<HttpResponse> {
-    return this.tree.handle(request)
+  async handle(request: HttpRequest, response: HttpResponse): Promise<HttpResponse> {
+    return this.tree.handle(request, response)
   }
 
   plugin<TRouter>(plugin: HttpPlugin<TRouter>): TRouter & HttpRouter<any, any, any> {

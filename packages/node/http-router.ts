@@ -5,7 +5,7 @@ import { HttpMiddleware } from './http-middleware'
 import { HttpPlugin } from './http-plugin'
 
 export interface HttpRouter<TReq extends HttpRequest, TRes, TParams> {
-  handle(request: HttpRequest): Promise<HttpResponse>
+  handle(request: HttpRequest, response: HttpResponse): Promise<HttpResponse>
 
   post(handler: HttpHandler<TReq, TRes, TParams>): void
 

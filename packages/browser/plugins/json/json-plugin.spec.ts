@@ -6,9 +6,9 @@ import { jsonPlugin } from './json-plugin'
 describe('client/plugins/json', () => {
   it('should', async () => {
     const app = router()
-    app.use(jsonBody()).post(async (req) => {
+    app.use(jsonBody()).post(async (req, res) => {
       expect(await req.bodyAsJson()).toEqual({ message: 'request' })
-      return req.ok({ message: 'response' })
+      return res.statusCode(200).json({ message: 'response' })
     })
     const cli = await nodeClient(app).plugin(jsonPlugin()).json({ message: 'request' }).post()
     const data = await cli.bodyAsString()

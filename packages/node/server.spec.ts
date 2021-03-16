@@ -5,8 +5,8 @@ import { nodeClient } from './node-client'
 describe('server', () => {
   it('should run server', async () => {
     const app = router()
-    app.path('api/todo').get(async (req) => {
-      return req.ok({ message: 'hi' })
+    app.path('api/todo').get(async (req, res) => {
+      return res.statusCode(200).json({ message: 'hi' })
     })
     const ser = getServer(app)
     ser.listen(3000)

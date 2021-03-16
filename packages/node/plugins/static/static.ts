@@ -1,53 +1,49 @@
 import { HttpPlugin } from '../../http-plugin'
-import { createReadStream, readdirSync, readFileSync } from 'fs'
+import { createReadStream, readdirSync } from 'fs'
 import { join } from 'path'
-import { ModuleKind, ScriptTarget, transpileModule } from 'typescript'
 
 export interface HttpStaticRouter {
-  directory(path: string): void
+  directory(path: string, options?: HttpStaticRouterDirectoryOptions): void
+}
+
+export interface HttpStaticRouterDirectoryOptions {
+  recursive: boolean
 }
 
 export function staticPlugin(): HttpPlugin<HttpStaticRouter> {
   return (router) => {
     return {
       ...router,
-      directory: (path: string) => {
-        const files = readdirSync(path)
-        for (const file of files) {
-          if (file.endsWith('.ts')) {
-            router.path(file.substr(0, file.length - 3)).get(async (req) => {
-              try {
-                const content = readFileSync(join(path, file)).toString()
-                const res = await transpileModule(content, {
-                  compilerOptions: {
-                    target: ScriptTarget.ES2020,
-                    module: ModuleKind.ES2015,
-                  },
-                })
-
-                return {
-                  body: res.outputText,
-                  headers: {
-                    'Content-Type': 'text/javascript'
-                  },
-                  statusCode: 200,
-                }
-              } catch (e) {
-                console.error(e)
-                return req.badRequest()
-              }
-            })
-          }
-
-          router.path(file).get((req) => {
-            return req.ok(createReadStream(join(path, file)))
+      directory: (path: string, options?: HttpStaticRouterDirectoryOptions) => {
+        const entries = readFilesInDirectory(path, options?.recursive ?? false, [])
+        for (const entry of entries) {
+          router.path(entry.relativePath).get((req, res) => {
+            return res.statusCode(200).body(createReadStream(entry.absolutePath))
           })
 
-          if (file === 'index.html') {
-            router.get((req) => req.ok(createReadStream(join(path, file))))
+          if (entry.filename === 'index.html') {
+            router.path(entry.paths.join('/')).get((req, res) => res.statusCode(200).body(createReadStream(entry.absolutePath)))
           }
         }
       },
+    }
+  }
+}
+
+export function* readFilesInDirectory(path: string, recursive: boolean, currentPath: string[]): Generator<{ paths: string[], relativePath: string, absolutePath: string, filename: string }> {
+  const entries = readdirSync(path, { withFileTypes: true })
+  for (const entry of entries) {
+    if (entry.isFile()) {
+      yield {
+        paths: currentPath,
+        filename: entry.name,
+        relativePath: [...currentPath, entry.name].join('/'),
+        absolutePath: join(path, entry.name),
+      }
+    } else if (recursive) {
+      for (const subEntry of readFilesInDirectory(join(path, entry.name), recursive, [...currentPath, entry.name])) {
+        yield subEntry
+      }
     }
   }
 }

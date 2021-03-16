@@ -28,4 +28,9 @@ export class HttpClientResponseImpl implements HttpClientResponse {
     }
     return header.join(', ')
   }
+
+  async bodyAsJson<T = unknown>(): Promise<T> {
+    const string = await this.bodyAsString()
+    return JSON.parse(string)
+  }
 }

@@ -5,12 +5,12 @@ import { logger } from './logger'
 describe('plugins/logger', () => {
   it('should log request', async () => {
     const app = router()
-    app.use(logger()).get(async (req) => {
+    app.use(logger()).get(async (req, res) => {
       req.log('info', 'before promise')
       return new Promise((resolve) => {
         setTimeout(() => {
           req.log('info', 'after timeout')
-          resolve(req.ok())
+          resolve(res)
         }, 100)
       })
     })

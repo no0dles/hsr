@@ -8,8 +8,8 @@ describe('plugins/cors', () => {
     app
       .use(cors())
       .path('api/todo')
-      .get((req) => {
-        return req.ok()
+      .get((req, res) => {
+        return res
       })
     const client = nodeClient(app)
     const corsRes = await client.path('/api/todo').header('origin', 'example.com').options()
@@ -26,14 +26,8 @@ describe('plugins/cors', () => {
     app
       .use(cors())
       .path('api/todo')
-      .get((req) => {
-        return {
-          statusCode: 200,
-          headers: {
-            'Access-Control-Allow-Origin': 'example.com',
-            'Access-Control-Allow-Credentials': 'false',
-          },
-        }
+      .get((req, res) => {
+        return res.header('Access-Control-Allow-Origin', 'example.com').header('Access-Control-Allow-Credentials', 'false')
       })
     const client = nodeClient(app)
     const res = await client.get('/api/todo')

@@ -5,9 +5,9 @@ import { nodeClient } from '../node-client'
 describe('plugins/base-authentication', () => {
   it('should allow when not required', async () => {
     const app = router()
-    app.use(basicAuthentication()).get((req) => {
+    app.use(basicAuthentication()).get((req, res) => {
       expect(req.auth).toEqual(null)
-      return req.ok()
+      return res;
     })
     const cli = nodeClient(app)
     await cli.get()
@@ -15,9 +15,9 @@ describe('plugins/base-authentication', () => {
 
   it('should decode basic auth', async () => {
     const app = router()
-    app.use(basicAuthentication()).get((req) => {
+    app.use(basicAuthentication()).get((req, res) => {
       expect(req.auth).toEqual({ username: 'foo', password: 'bar' })
-      return req.ok()
+      return res;
     })
     const cli = nodeClient(app)
     await cli.header('Authorization', `Basic ${Buffer.from('foo:bar').toString('base64')}`).get()
@@ -25,9 +25,9 @@ describe('plugins/base-authentication', () => {
 
   it('should required decode basic auth', async () => {
     const app = router()
-    app.use(basicAuthentication({ required: true })).get((req) => {
+    app.use(basicAuthentication({ required: true })).get((req, res) => {
       expect(req.auth).toEqual({ username: 'foo', password: 'bar' })
-      return req.ok()
+      return res
     })
     const cli = nodeClient(app)
     const res = await cli.get()
@@ -36,9 +36,9 @@ describe('plugins/base-authentication', () => {
 
   it('should not accept invalid header', async () => {
     const app = router()
-    app.use(basicAuthentication({ required: true })).get((req) => {
+    app.use(basicAuthentication({ required: true })).get((req, res) => {
       expect(req.auth).toEqual({ username: 'foo', password: 'bar' })
-      return req.ok()
+      return res
     })
     const cli = nodeClient(app)
     const res = await cli.header('Authorization', 'Basic foo:bar').get()

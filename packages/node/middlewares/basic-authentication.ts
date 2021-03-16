@@ -50,19 +50,19 @@ export function basicAuthentication(options?: BasicAuthenticationOptions): HttpB
     }
 
     if (options?.required && !auth) {
-      return ctx.req.unauthorized({
+      return ctx.res.statusCode(401).json({
         message: 'missing basic auth',
       })
     }
 
     if (auth && (!auth.password || !auth.username)) {
-      return ctx.req.badRequest({
+      return ctx.res.statusCode(400).json({
         message: 'invalid basic auth',
       })
     }
 
     const newReq = ctx.req as HttpBasicAuthenticationRequest
     newReq.auth = auth
-    return ctx.next(newReq)
+    return ctx.next(newReq, ctx.res)
   }
 }

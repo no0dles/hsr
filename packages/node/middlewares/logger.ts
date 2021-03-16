@@ -26,7 +26,7 @@ export function logger(): HttpBodyMiddleware {
       logs.push({ type, message, date: new Date() })
     }
     console.time(message)
-    const res = await ctx.next(newReq)
+    const res = await ctx.next(newReq, ctx.res)
     console.timeEnd(message)
     for (const log of logs) {
       console.log(`${log.date.toISOString()}  ${log.type}: ${log.message}`)

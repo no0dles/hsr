@@ -56,14 +56,15 @@ export class HttpTree {
     depth: number,
     node: HttpTreeNode,
     currentRequest: HttpRequest,
+    currentResponse: HttpResponse,
     params: any
   ): Promise<HttpResponse> {
     return new Promise<HttpResponse>(async (resolve, reject) => {
       if (depth < node.middlewares.length) {
         try {
           const result = await node.middlewares[depth](
-            new HttpMiddlewareContextImpl(currentRequest, (nextReq) => {
-              return this.handleMiddlewares(depth + 1, node, nextReq, params)
+            new HttpMiddlewareContextImpl(currentRequest, currentResponse, (nextReq, nextRes) => {
+              return this.handleMiddlewares(depth + 1, node, nextReq, nextRes, params)
             })
           )
           resolve(result)
@@ -73,17 +74,15 @@ export class HttpTree {
       } else {
         const handler = node.handlers[currentRequest.method]
         if (!handler) {
-          resolve({
-            statusCode: 404,
-          })
+          resolve(currentResponse.statusCode(404))
         } else {
-          resolve(handler(currentRequest, params))
+          resolve(handler(currentRequest, currentResponse, params))
         }
       }
     })
   }
 
-  async handle(request: HttpRequest): Promise<HttpResponse> {
+  async handle(request: HttpRequest, response: HttpResponse): Promise<HttpResponse> {
     let currentNode = this.rootNode
     const params: any = {}
     for (const path of request.paths) {
@@ -93,19 +92,15 @@ export class HttpTree {
         params[currentNode.paramNode.name] = path
         currentNode = currentNode.paramNode.node
       } else {
-        return {
-          statusCode: 404,
-        }
+        return response.statusCode(404)
       }
     }
 
     try {
-      return this.handleMiddlewares(0, currentNode, request, params)
+      return this.handleMiddlewares(0, currentNode, request, response, params)
     } catch (e) {
       console.error(e)
-      return {
-        statusCode: 500,
-      }
+      return response.statusCode(500)
     }
   }
 }

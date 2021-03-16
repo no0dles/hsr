@@ -5,7 +5,7 @@ import { BrowserHttpAdapter } from './http-browser-adapter'
 
 export function browserClient(baseUrl?: string): HttpClient<HttpClientResponse> {
   return new HttpClientImpl(new BrowserHttpAdapter(), {
-    baseUrl: baseUrl,
+    baseUrl: baseUrl ?? '',
     query: {},
     body: null,
     headers: {},

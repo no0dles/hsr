@@ -4,6 +4,7 @@ import { getServer } from '../node/server'
 import { staticPlugin } from '../node/plugins/static/static'
 import {join} from 'path'
 import { HttpClientResponse } from './http-client-response'
+import { typescriptPlugin } from '../node/plugins/typescript/typescript'
 
 describe('client/browser', () => {
   it('should login with valid credentials', async () => {
@@ -15,12 +16,16 @@ describe('client/browser', () => {
 
     const server = router();
     server
-      .path('/api/hello').get(req => {
-        return req.ok()
+      .path('/api/hello').get((req, res) => {
+        return res.statusCode(200)
       });
 
     server
-      .plugin(staticPlugin()).directory(join(__dirname,'.'));
+      .plugin(staticPlugin())
+      .directory(join(__dirname,'.'));
+
+    server.plugin(typescriptPlugin())
+      .compileDirectory(join(__dirname,'.'));
 
     await new Promise<void>((resolve) => {
       const srv = getServer(server).listen(0, async () => {

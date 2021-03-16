@@ -19,6 +19,6 @@ export function constant<K, V>(name: keyof K, value: V): HttpConstantMiddleware<
     constant[name] = value
     const newReq = ctx.req as HttpConstantRequest<keyof K, V>
     newReq.constant = constant
-    return ctx.next(newReq)
+    return ctx.next(newReq, ctx.res)
   }
 }

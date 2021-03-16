@@ -1,5 +1,8 @@
 {
   "files": [],
+  "compilerOptions": {
+    "downlevelIteration": true
+  },
   "references": [
     {
       "path": "./tsconfig.client.json"

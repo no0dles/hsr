@@ -9,10 +9,10 @@ describe('plugins/json', () => {
     app
       .path('/api/todo')
       .use(jsonBody())
-      .post(async (req) => {
+      .post(async (req, res) => {
         const data = await req.bodyAsJson()
         expect(data).toEqual({ message: 'test' })
-        return req.ok()
+        return res
       })
     const res = await cli.body(JSON.stringify({ message: 'test' })).post('/api/todo')
     expect(res.statusCode).toEqual(200)
