@@ -2,7 +2,7 @@ import { HttpMethod } from '../browser/http-method'
 import { HttpClientResponse } from '../browser/http-client-response'
 import { request as httpRequest } from 'http'
 import { request as httpsRequest } from 'https'
-import { HttpClientResponseImpl } from './http-client-response-impl'
+import { HttpClientResponseImpl, HttpNodeClientResponse } from './http-client-response-impl'
 import { Readable } from 'stream'
 import { readableToBuffer } from './http-request-impl'
 import { URL } from 'url'
@@ -10,8 +10,8 @@ import { stringify } from 'querystring'
 import { HttpClientConfig } from '../browser/http-client-impl'
 import { HttpAdapter } from '../browser/http-adapter'
 
-export class NodeHttpAdapter implements HttpAdapter {
-  send(config: HttpClientConfig, method: HttpMethod): Promise<HttpClientResponse> {
+export class NodeHttpAdapter implements HttpAdapter<HttpNodeClientResponse> {
+  send(config: HttpClientConfig, method: HttpMethod): Promise<HttpNodeClientResponse> {
     let _request: typeof httpRequest
     if (config.baseUrl.startsWith('https:')) {
       _request = httpsRequest
@@ -22,7 +22,7 @@ export class NodeHttpAdapter implements HttpAdapter {
     }
 
     const url = this.getUrl(config)
-    return new Promise<HttpClientResponse>(async (resolve, reject) => {
+    return new Promise<HttpNodeClientResponse>(async (resolve, reject) => {
       try {
         const req = _request(
           url,
@@ -30,15 +30,15 @@ export class NodeHttpAdapter implements HttpAdapter {
             method,
             headers: config.headers,
           },
-          (res) => {
-            resolve(new HttpClientResponseImpl(res))
-          }
+          async (res) => {
+            let currentRes = new HttpClientResponseImpl(res)
+            for (const middleware of config.middlewares) {
+              currentRes = await middleware.handleResponse(currentRes)
+            }
+            resolve(currentRes)
+          },
         )
         if (config.body) {
-          // if (config.body instanceof Readable) {
-          //   req.write(await readableToBuffer(config.body))
-          // } else {
-          // }
           req.write(config.body)
         }
         req.end()

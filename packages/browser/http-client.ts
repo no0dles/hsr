@@ -1,7 +1,14 @@
 import { HttpClientPlugin } from './http-client-plugin'
 
+export interface HttpClientMiddleware<TInputRes, TOutputRes> {
+  handleResponse(res: TInputRes): Promise<TOutputRes> | TOutputRes
+  handleRequest(res: HttpClient<any>): HttpClient<any>
+}
+
 export interface HttpClient<TResponse> {
   path(path: string): this
+
+  use<TNewResponse>(middleware: HttpClientMiddleware<TResponse, TNewResponse>): this & HttpClient<TNewResponse>
 
   header(name: string, value: string | string[]): this
 

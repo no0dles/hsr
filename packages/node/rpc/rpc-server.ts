@@ -3,6 +3,7 @@ import { Type } from 'io-ts'
 import { router } from '../router'
 import { PathReporter } from 'io-ts/PathReporter'
 import { getServer } from '../server'
+import { HttpPlugin } from '../http-plugin'
 
 export class RpcNodeServerImpl implements RpcServer<any, any> {
   _calls: { [key: string]: (req: any) => Promise<any> | any } = {}
@@ -14,37 +15,36 @@ export class RpcNodeServerImpl implements RpcServer<any, any> {
     return this
   }
 
-  listen(port?: number): Promise<void> {
-    const app = router()
-    for (const key of Object.keys(this._calls)) {
-      app.path(`/api/rpc/${key}`).post(async (req, res) => {
-        const data = await req.bodyAsJson()
-        const val = this._decorders[key].decode(data)
-        if (val._tag === 'Left') {
-          console.log(PathReporter.report(val))
-          return res.statusCode(400).json({message: 'invalid request'})
-        } else {
-          try {
-            const result = await this._calls[key](val.right)
-            return res.statusCode(200).body(JSON.stringify(result))
-          } catch (e) {
-            console.error(e)
-            return res.statusCode(500)
-          }
-        }
-      })
+  async execute<P extends string & keyof any>(name: P, arg: any): Promise<any> {
+    const val = this._decorders[name].decode(arg)
+    if (val._tag === 'Left') {
+      console.log(PathReporter.report(val))
+      throw new Error('invalid argument')
+    } else {
+      const result = await this._calls[name](val.right)
+      return result
     }
-    const server = getServer(app)
-    return new Promise<void>((resolve, reject) => {
-      server.on('error', err => reject(err))
-      server.listen(port, () => {
-        resolve()
-      })
-    })
   }
 
 }
 
 export function rpcServer(): RpcServer<{}, {}> {
-  return new RpcNodeServerImpl();
+  return new RpcNodeServerImpl()
+}
+
+export function getRpcHttpPlugin(rpcServer: RpcServer<any, any>): HttpPlugin<any> {
+  return (router) => {
+    for (const key of Object.keys(rpcServer._calls)) {
+      router.path(`/api/rpc/${key}`).post(async (req, res) => {
+        const data = await req.bodyAsJson()
+        try {
+          const result = await rpcServer.execute(key, data)
+          return res.statusCode(200).json(result)
+        } catch (e) {
+          console.error(e)
+          return res.statusCode(500)
+        }
+      })
+    }
+  }
 }

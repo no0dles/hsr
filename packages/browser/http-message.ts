@@ -3,5 +3,6 @@ export interface HttpMessage {
   bodyAsJson<T = unknown>(): Promise<T>;
 
   header(name: string): string | string[] | null
+  hasHeaderValue(name: string, value: string): boolean
   headerAsString(name: string): string | null
 }

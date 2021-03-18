@@ -1,6 +1,8 @@
-import { rpcServer } from './rpc-server'
+import { getRpcHttpPlugin, rpcServer } from './rpc-server'
 import { type, string } from 'io-ts'
 import { rpcNodeClient } from './rpc-node-client'
+import { router } from '../router'
+import { getServer } from '../server'
 
 describe('rpc', () => {
   it('should', async () => {
@@ -12,12 +14,15 @@ describe('rpc', () => {
         message: 'foo' + req.value,
       }
     })
-    await server.listen(3333)
+    const app = router()
+    app.plugin(getRpcHttpPlugin(server))
+    const serv = await getServer(app).listen(3333)
 
     const client = rpcNodeClient<typeof server>('http://localhost:3333')
     const res = await client.call('foo', {
-      value: 'test'
+      value: 'test',
     })
-    console.log(res)
+    expect(res.message).toEqual('footest')
+    serv.close()
   })
 })

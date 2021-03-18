@@ -1,9 +1,9 @@
-import { HttpClient } from '../browser/http-client'
-import { HttpClientResponse } from '../browser/http-client-response'
+import { HttpClient, HttpClientMiddleware } from '../browser/http-client'
 import { Server } from 'http'
 import { HttpClientImpl } from '../browser/http-client-impl'
 import { HttpClientPlugin } from '../browser/http-client-plugin'
 import { NodeHttpAdapter } from './http-node-adapter'
+import { HttpNodeClientResponse } from './http-client-response-impl'
 
 export interface HttpRouterConfig {
   query: { [key: string]: string | string[] }
@@ -11,10 +11,12 @@ export interface HttpRouterConfig {
   headers: { [key: string]: string | string[] }
   body: string | null
   server: Server
+  middlewares: HttpClientMiddleware<any, any>[]
 }
 
-export class HttpRouterClientImpl implements HttpClient<any> {
-  constructor(private config: HttpRouterConfig) {}
+export class HttpRouterClientImpl implements HttpClient<HttpNodeClientResponse> {
+  constructor(private config: HttpRouterConfig) {
+  }
 
   private async request(): Promise<HttpClient<any>> {
     const address = this.config.server.address()
@@ -26,6 +28,7 @@ export class HttpRouterClientImpl implements HttpClient<any> {
         paths: this.config.paths,
         body: this.config.body,
         headers: this.config.headers,
+        middlewares: this.config.middlewares,
       })
     } else {
       return new Promise<HttpClient<any>>((resolve, reject) => {
@@ -40,32 +43,32 @@ export class HttpRouterClientImpl implements HttpClient<any> {
     }
   }
 
-  async delete(path?: string): Promise<HttpClientResponse> {
+  async delete(path?: string): Promise<HttpNodeClientResponse> {
     const client = await this.request()
     return client.delete(path)
   }
 
-  async head(path?: string): Promise<HttpClientResponse> {
+  async head(path?: string): Promise<HttpNodeClientResponse> {
     const client = await this.request()
     return client.head(path)
   }
 
-  async get(path?: string): Promise<HttpClientResponse> {
+  async get(path?: string): Promise<HttpNodeClientResponse> {
     const client = await this.request()
     return client.get(path)
   }
 
-  async options(path?: string): Promise<HttpClientResponse> {
+  async options(path?: string): Promise<HttpNodeClientResponse> {
     const client = await this.request()
     return client.options(path)
   }
 
-  async post(path?: string): Promise<HttpClientResponse> {
+  async post(path?: string): Promise<HttpNodeClientResponse> {
     const client = await this.request()
     return client.post(path)
   }
 
-  async put(path?: string): Promise<HttpClientResponse> {
+  async put(path?: string): Promise<HttpNodeClientResponse> {
     const client = await this.request()
     return client.put(path)
   }
@@ -90,6 +93,13 @@ export class HttpRouterClientImpl implements HttpClient<any> {
         }
       })
     })
+  }
+
+  use<TNewResponse>(middleware: HttpClientMiddleware<any, TNewResponse>): this & HttpClient<TNewResponse> {
+    const newReq = Object.create(this) as HttpRouterClientImpl
+    newReq.config = Object.create(newReq.config)
+    newReq.config.middlewares = [...newReq.config.middlewares, middleware]
+    return newReq as any
   }
 
   body(body: string): HttpClient<any> {

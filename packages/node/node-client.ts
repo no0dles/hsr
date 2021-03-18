@@ -2,13 +2,13 @@ import { HttpRouter } from './http-router'
 import { HttpClient } from '../browser/http-client'
 import { HttpClientImpl } from '../browser/http-client-impl'
 import { HttpRouterClientImpl } from './http-router-client-impl'
-import { HttpClientResponse } from '../browser/http-client-response'
 import { getServer } from './server'
 import { NodeHttpAdapter } from './http-node-adapter'
+import { HttpNodeClientResponse } from './http-client-response-impl'
 
-export function nodeClient(baseUrl: string): HttpClient<HttpClientResponse>
-export function nodeClient(router: HttpRouter<any, any, any>): HttpClient<HttpClientResponse>
-export function nodeClient(baseUrlOrRouter: string | HttpRouter<any, any, any>): HttpClient<HttpClientResponse> {
+export function nodeClient(baseUrl: string): HttpClient<HttpNodeClientResponse>
+export function nodeClient(router: HttpRouter<any, any, any>): HttpClient<HttpNodeClientResponse>
+export function nodeClient(baseUrlOrRouter: string | HttpRouter<any, any, any>): HttpClient<HttpNodeClientResponse> {
   if (typeof baseUrlOrRouter === 'string') {
     return new HttpClientImpl(new NodeHttpAdapter(), {
       baseUrl: baseUrlOrRouter,
@@ -16,6 +16,7 @@ export function nodeClient(baseUrlOrRouter: string | HttpRouter<any, any, any>):
       body: null,
       headers: {},
       paths: [],
+      middlewares: [],
     })
   } else {
     return new HttpRouterClientImpl({
@@ -23,6 +24,7 @@ export function nodeClient(baseUrlOrRouter: string | HttpRouter<any, any, any>):
       paths: [],
       body: null,
       headers: {},
+      middlewares: [],
       server: getServer(baseUrlOrRouter),
     })
   }

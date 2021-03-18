@@ -10,5 +10,6 @@ export function browserClient(baseUrl?: string): HttpClient<HttpClientResponse> 
     body: null,
     headers: {},
     paths: [],
+    middlewares: [],
   })
 }

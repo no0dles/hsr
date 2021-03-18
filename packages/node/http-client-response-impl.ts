@@ -2,11 +2,25 @@ import { HttpClientResponse } from '../browser/http-client-response'
 import { IncomingMessage } from 'http'
 import { readableToBuffer } from './http-request-impl'
 
-export class HttpClientResponseImpl implements HttpClientResponse {
+export interface HttpNodeClientResponse extends HttpClientResponse {
+  message: IncomingMessage;
+}
+
+export class HttpClientResponseImpl implements HttpNodeClientResponse {
   readonly statusCode: number
 
-  constructor(private message: IncomingMessage) {
+  constructor(public message: IncomingMessage) {
     this.statusCode = message.statusCode ?? 0
+  }
+
+  hasHeaderValue(name: string, value: string): boolean {
+    const headers = this.header(name)
+    if (typeof headers === 'string') {
+      return headers === value
+    } else if (headers instanceof Array) {
+      return headers.some(h => h === value)
+    }
+    return false
   }
 
   async bodyAsString(): Promise<string> {

@@ -59,4 +59,14 @@ export class HttpRequestImpl implements HttpRequest {
     const string = await this.bodyAsString()
     return JSON.parse(string)
   }
+
+  hasHeaderValue(name: string, value: string): boolean {
+    const headers = this.header(name)
+    if (typeof headers === 'string') {
+      return headers === value
+    } else if (headers instanceof Array) {
+      return headers.some(h => h === value)
+    }
+    return false
+  }
 }
