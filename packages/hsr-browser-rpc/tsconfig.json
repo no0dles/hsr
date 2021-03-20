@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "module": "ES2015",
+    "target": "ES2015",
+    "strict": true,
+    "composite": true,
+    "moduleResolution": "node",
+    "outDir": "../../dist/hsr-browser-rpc",
+    "strictNullChecks": true,
+    "lib": [
+      "dom",
+      "es6"
+    ],
+    "types": [],
+    "rootDir": ".",
+    "baseUrl": ".",
+    "tsBuildInfoFile": "../../dist/hsr-browser-rpc.tsbuildinfo"
+  },
+  "references": [
+    {
+      "path": "../hsr-browser/tsconfig.json"
+    }
+  ],
+  "exclude": [
+    "**/*.spec.ts"
+  ]
+}

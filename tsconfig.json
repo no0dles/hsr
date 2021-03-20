@@ -5,10 +5,19 @@
   },
   "references": [
     {
-      "path": "./tsconfig.client.json"
+      "path": "./packages/hsr-browser/tsconfig.json"
     },
     {
-      "path": "./tsconfig.server.json"
+      "path": "./packages/hsr-browser-rpc/tsconfig.json"
+    },
+    {
+      "path": "./packages/hsr-node/tsconfig.json"
+    },
+    {
+      "path": "./packages/hsr-node-rpc/tsconfig.json"
+    },
+    {
+      "path": "./packages/hsr-node-typescript/tsconfig.json"
     },
     {
       "path": "./tsconfig.test.json"

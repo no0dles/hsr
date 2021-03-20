@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "ES2015",
+    "strict": true,
+    "composite": true,
+    "declaration": true,
+    "outDir": "../../dist/hsr-node-typescript",
+    "strictNullChecks": true,
+    "types": [
+      "@types/node"
+    ],
+    "lib": [
+      "es6"
+    ],
+    "rootDir": ".",
+    "baseUrl": ".",
+    "tsBuildInfoFile": "../../dist/hsr-node-typescript.tsbuildinfo"
+  },
+  "references": [
+    {
+      "path": "../hsr-node/tsconfig.json"
+    }
+  ],
+  "exclude": [
+    "./**/*.spec.ts"
+  ]
+}

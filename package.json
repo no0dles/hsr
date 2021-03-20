@@ -5,6 +5,13 @@
     "test": "jest",
     "build": "tsc -b"
   },
+  "workspaces": [
+    "packages/hsr-browser",
+    "packages/hsr-browser-rpc",
+    "packages/hsr-node",
+    "packages/hsr-node-rpc",
+    "packages/hsr-node-typescript"
+  ],
   "devDependencies": {
     "@types/jest": "^26.0.20",
     "@types/node": "^14.14.31",
@@ -14,11 +21,7 @@
     "prettier": "^2.2.1",
     "ts-jest": "^26.5.2",
     "ts-node": "^9.1.1",
-    "typescript": "^4.1.5",
+    "typescript": "^4.2.3",
     "webdriverio": "^7.1.0"
-  },
-  "dependencies": {
-    "fp-ts": "^2.9.5",
-    "io-ts": "^2.2.16"
   }
 }
