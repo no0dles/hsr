@@ -49,13 +49,6 @@ jobs:
       - run: npm run build
         name: "build hsr-node"
         working-directory: packages/hsr-node
-      - name: build result
-        uses: actions/upload-artifact@v2
-        with:
-          name: build
-          path: |
-            dist/hsr-node
-            dist/hsr-node.tsbuildinfo
   hsr-node-rpc:
     name: Build hsr-node-rpc
     runs-on: ubuntu-20.04
@@ -66,6 +59,9 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 14.x
+      - run: npm ci
+        name: "install hsr-node"
+        working-directory: packages/hsr-node
       - run: npm ci
         name: "install hsr-node-rpc"
         working-directory: packages/hsr-node-rpc
@@ -83,6 +79,9 @@ jobs:
         with:
           node-version: 14.x
       - run: npm ci
+        name: "install hsr-node"
+        working-directory: packages/hsr-node
+      - run: npm ci
         name: "install hsr-node-typescript"
         working-directory: packages/hsr-node-typescript
       - run: npm run build
@@ -98,6 +97,9 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 14.x
+      - run: npm ci
+        name: "install hsr-node"
+        working-directory: packages/hsr-node
       - run: npm ci
         name: "install hsr-tests"
         working-directory: tests/hsr-tests
