@@ -10,7 +10,7 @@ export interface HttpRouterConfig {
   paths: string[]
   headers: { [key: string]: string | string[] }
   body: string | null
-  server: Server
+  server: Promise<Server>
   middlewares: HttpClientMiddleware<any, any>[]
 }
 
@@ -18,28 +18,17 @@ export class HttpRouterClientImpl implements HttpClient<HttpNodeClientResponse> 
   constructor(private config: HttpRouterConfig) {}
 
   private async request(): Promise<HttpClient<any>> {
-    const address = this.config.server.address()
-    if (address) {
-      const baseUrl = typeof address === 'string' ? address : `http://localhost:${address?.port}`
-      return new HttpClientImpl(new NodeHttpAdapter(), {
-        baseUrl,
-        query: this.config.query,
-        paths: this.config.paths,
-        body: this.config.body,
-        headers: this.config.headers,
-        middlewares: this.config.middlewares,
-      })
-    } else {
-      return new Promise<HttpClient<any>>((resolve, reject) => {
-        this.config.server.listen(0, async () => {
-          try {
-            resolve(await this.request())
-          } catch (e) {
-            reject(e)
-          }
-        })
-      })
-    }
+    const server = await this.config.server
+    const address = server.address()
+    const baseUrl = typeof address === 'string' ? address : `http://localhost:${address?.port}`
+    return new HttpClientImpl(new NodeHttpAdapter(), {
+      baseUrl,
+      query: this.config.query,
+      paths: this.config.paths,
+      body: this.config.body,
+      headers: this.config.headers,
+      middlewares: this.config.middlewares,
+    })
   }
 
   async delete(path?: string): Promise<HttpNodeClientResponse> {
@@ -78,13 +67,14 @@ export class HttpRouterClientImpl implements HttpClient<HttpNodeClientResponse> 
   }
 
   async close(): Promise<void> {
-    const addr = this.config.server.address()
+    const server = await this.config.server
+    const addr = server.address()
     if (!addr) {
       return
     }
 
     return new Promise<void>((resolve, reject) => {
-      this.config.server.close((err) => {
+      server.close((err) => {
         if (err) {
           reject(err)
         } else {

@@ -1,12 +1,12 @@
 import { router } from '../../../../../packages/hsr-node/server/router'
 import { nodeClient } from '../../../../../packages/hsr-node/client/node-client'
 import { brotli, nodeBrotliClient } from '../../../../../packages/hsr-node/middlewares/compression/brotli'
-import { getServer } from '../../../../../packages/hsr-node/server/server'
 import { staticPlugin } from '../../../../../packages/hsr-node/plugins/static/static'
 import { typescriptPlugin } from '../../../../../packages/hsr-node-typescript/typescript-plugin'
 import { join } from 'path'
 import * as puppeteer from 'puppeteer'
 import { HTTPResponse } from 'puppeteer'
+import { listenHttp } from '../../../../../packages/hsr-node/server/server'
 
 describe('node/middlewares/brotli', () => {
   it('should not use brotli if client does not support it', async () => {
@@ -51,30 +51,24 @@ describe('node/middlewares/brotli', () => {
         })
       )
 
-      await new Promise<void>((resolve, reject) => {
-        const srv = getServer(app).listen(0, async () => {
-          try {
-            const page = await browser.newPage()
-            page
-              .on('console', (message) => console.log(`${message.type().substr(0, 3).toUpperCase()} ${message.text()}`))
-              .on('pageerror', ({ message }) => console.log(message))
-              .on('response', (response) => console.log(`${response.status()} ${response.url()}`))
-              .on('requestfailed', (request) => console.log(`${request.failure().errorText} ${request.url()}`))
-            await page.goto('http://localhost:' + (srv.address() as any).port + '/brotli.html')
-            const response = await page.waitForResponse((res: HTTPResponse) => {
-              return res.url().endsWith('/api/test')
-            })
-            expect(response.headers()['content-encoding']).toEqual('br')
-            const result = await page.evaluate(() => (<any>window).result.then((r: any) => r.bodyAsJson()))
-            expect(result).toEqual({ message: 'foo bar bar' })
-            resolve()
-          } catch (e) {
-            reject(e)
-          } finally {
-            srv.close()
-          }
+      const server = await listenHttp(app)
+      try {
+        const page = await browser.newPage()
+        page
+          .on('console', (message) => console.log(`${message.type().substr(0, 3).toUpperCase()} ${message.text()}`))
+          .on('pageerror', ({ message }) => console.log(message))
+          .on('response', (response) => console.log(`${response.status()} ${response.url()}`))
+          .on('requestfailed', (request) => console.log(`${request.failure().errorText} ${request.url()}`))
+        await page.goto('http://localhost:' + (server.address() as any).port + '/brotli.html')
+        const response = await page.waitForResponse((res: HTTPResponse) => {
+          return res.url().endsWith('/api/test')
         })
-      })
+        expect(response.headers()['content-encoding']).toEqual('br')
+        const result = await page.evaluate(() => (<any>window).result.then((r: any) => r.bodyAsJson()))
+        expect(result).toEqual({ message: 'foo bar bar' })
+      } finally {
+        server.close()
+      }
     } finally {
       await browser.close()
     }
