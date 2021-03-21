@@ -1,7 +1,8 @@
-import { RpcClient, RpcServer } from '../hsr-browser-rpc/rpc-client'
+import type { RpcClient } from '../hsr-browser-rpc/rpc-client'
+import type { RpcServerInterface } from '../hsr-browser-rpc/rpc-server-interface'
 import { nodeClient } from '../hsr-node/client/node-client'
 
-export function rpcNodeClient<T extends RpcServer<any, any>>(url: string): RpcClient<T> {
+export function rpcNodeClient<T extends RpcServerInterface<any, any>>(url: string): RpcClient<T> {
   const client = nodeClient(url)
   return {
     async call<TCall extends T['_calls'], A extends T['_decorders'], P extends string & keyof TCall>(

@@ -1,6 +1,19 @@
 {
   "name": "hsr-browser-rpc",
-  "version": "1.0.0",
-  "dependencies": {
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/no0dles/hsr"
+  },
+  "version": "0.0.0",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./rpc-browser-client.js"
+  },
+  "scripts": {
+    "build": "tsc -b"
+  },
+  "devDependencies": {
+    "typescript": "^4.2.3"
   }
 }

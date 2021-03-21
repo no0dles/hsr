@@ -1,47 +1,21 @@
-import { RpcServer } from '../hsr-browser-rpc/rpc-client'
+import type { RpcServerInterface } from '../hsr-browser-rpc/rpc-server-interface'
+import { RpcNodeServerImpl } from './rpc-node-server-impl'
 import { Type } from 'io-ts'
-import { PathReporter } from 'io-ts/PathReporter'
-import { HttpPlugin } from '../hsr-node/server/http-plugin'
 
-export class RpcNodeServerImpl implements RpcServer<any, any> {
-  _calls: { [key: string]: (req: any) => Promise<any> | any } = {}
-  _decorders: { [key: string]: Type<any> } = {}
+export interface RpcServer<T, D> extends RpcServerInterface<T, D> {
+  _calls: Readonly<T>
+  _decorders: Readonly<D>
 
-  cmd<C, R, I>(path: keyof C, decoder: Type<I>, handler: (req: I) => R): RpcServer<any, any> {
-    this._calls[path.toString()] = handler
-    this._decorders[path.toString()] = decoder
-    return this
-  }
+  cmd<C, R, I>(
+    path: keyof C,
+    decoder: Type<I>,
+    handler: (req: I) => R,
+  ): RpcServer<T & Record<typeof path, R>, D & Record<typeof path, I>>
 
-  async execute<P extends string & keyof any>(name: P, arg: any): Promise<any> {
-    const val = this._decorders[name].decode(arg)
-    if (val._tag === 'Left') {
-      console.log(PathReporter.report(val))
-      throw new Error('invalid argument')
-    } else {
-      const result = await this._calls[name](val.right)
-      return result
-    }
-  }
+  execute<P extends string & keyof T & keyof D>(name: P, arg: D[P]): Promise<T[P]>
 }
 
 export function rpcServer(): RpcServer<{}, {}> {
   return new RpcNodeServerImpl()
 }
 
-export function getRpcHttpPlugin(rpcServer: RpcServer<any, any>): HttpPlugin<any> {
-  return (router) => {
-    for (const key of Object.keys(rpcServer._calls)) {
-      router.path(`/api/rpc/${key}`).post(async (req, res) => {
-        const data = await req.bodyAsJson()
-        try {
-          const result = await rpcServer.execute(key, data)
-          return res.statusCode(200).json(result)
-        } catch (e) {
-          console.error(e)
-          return res.statusCode(500)
-        }
-      })
-    }
-  }
-}

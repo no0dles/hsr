@@ -7,9 +7,6 @@
     "declaration": true,
     "outDir": "../../dist/hsr-node",
     "strictNullChecks": true,
-    "types": [
-      "@types/node"
-    ],
     "lib": [
       "es6"
     ],
@@ -21,8 +18,5 @@
     {
       "path": "../hsr-browser/tsconfig.json"
     }
-  ],
-  "exclude": [
-    "./**/*.spec.ts"
   ]
 }

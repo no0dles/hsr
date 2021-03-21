@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "module": "ES2015",
+    "target": "ES2015",
+    "strict": true,
+    "composite": true,
+    "declaration": true,
+    "moduleResolution": "node",
+    "outDir": "../../dist/hsr-tests",
+    "lib": ["es6", "dom"],
+    "strictNullChecks": true,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "rootDir": ".",
+    "tsBuildInfoFile": "../../dist/hsr-tests.tsbuildinfo"
+  },
+  "references": [
+    {
+      "path": "../../packages/hsr-browser/tsconfig.json"
+    },
+    {
+      "path": "../../packages/hsr-browser-rpc/tsconfig.json"
+    },
+    {
+      "path": "../../packages/hsr-node/tsconfig.json"
+    },
+    {
+      "path": "../../packages/hsr-node-rpc/tsconfig.json"
+    },
+    {
+      "path": "../../packages/hsr-node-typescript/tsconfig.json"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "name": "hsr-tests",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/no0dles/hsr"
+  },
+  "scripts": {
+    "test": "jest",
+    "build": "tsc -b"
+  },
+  "version": "0.0.0",
+  "license": "MIT",
+  "devDependencies": {
+    "puppeteer": "^8.0.0",
+    "io-ts": "^2.2.16",
+    "fp-ts": "^2.9.5",
+    "@types/jest": "^26.0.20",
+    "ts-node": "^9.1.1",
+    "jest": "^26.6.3",
+    "typescript": "^4.2.3",
+    "ts-jest": "^26.5.2"
+  }
+}

@@ -1,6 +1,19 @@
 {
   "name": "hsr-browser",
-  "version": "1.0.0",
-  "dependencies": {
+  "version": "0.0.0",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/no0dles/hsr"
+  },
+  "scripts": {
+    "build": "tsc -b"
+  },
+  "license": "MIT",
+  "exports": {
+    ".": "./browser-client.js"
+  },
+  "devDependencies": {
+    "typescript": "^4.2.3"
   }
 }

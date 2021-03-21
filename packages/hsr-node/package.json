@@ -1,4 +1,27 @@
 {
   "name": "hsr-node",
-  "version": "1.0.0"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/no0dles/hsr"
+  },
+  "version": "0.0.0",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -b"
+  },
+  "exports": {
+    "./client": "./client/node-client.js",
+    "./server": "./server/router.js",
+    "./plugins/static": "./plugins/static/static.js",
+    "./middlewares/basic-authentication": "./middlewares/basic-authentication/basic-authentication.js",
+    "./middlewares/bearer-authentication": "./middlewares/bearer-authentication/bearer-authentication.js",
+    "./middlewares/constant": "./middlewares/constant/constant.js",
+    "./middlewares/cors": "./middlewares/cors/cors.js",
+    "./middlewares/logger": "./middlewares/logger/logger.js"
+  },
+  "devDependencies": {
+    "typescript": "^4.2.3",
+    "@types/node": "^14.14.31"
+  }
 }
