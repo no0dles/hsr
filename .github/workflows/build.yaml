@@ -49,6 +49,13 @@ jobs:
       - run: npm run build
         name: "build hsr-node"
         working-directory: packages/hsr-node
+      - name: build result
+        uses: actions/upload-artifact@v2
+        with:
+          name: build
+          path: |
+            dist/hsr-node
+            dist/hsr-node.tsbuildinfo
   hsr-node-rpc:
     name: Build hsr-node-rpc
     runs-on: ubuntu-20.04
@@ -85,6 +92,7 @@ jobs:
     name: Build hsr-tests
     runs-on: ubuntu-20.04
     timeout-minutes: 5
+    needs: [hsr-browser,hsr-browser-rpc,hsr-node,hsr-node-rpc,hsr-node-typescript]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
