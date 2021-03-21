@@ -14,7 +14,10 @@ jobs:
           scope: '@no0dles'
       - run: ./scripts/install.sh
       - run: ./scripts/build.sh
+      - name: Get the version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
       - run: ./scripts/publish.sh
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VERSION: ${{ github.ref }}
+          VERSION: ${{ steps.get_version.outputs.VERSION }}
