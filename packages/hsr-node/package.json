@@ -12,7 +12,7 @@
   "exports": {
     "./client/node-client": "./client/node-client.js",
     "./server/router": "./server/router.js",
-    "./plugins/static": "./plugins/static/static.js",
+    "./plugins/static/static": "./plugins/static/static.js",
     "./middlewares/basic-authentication/bearer-authentication": "./middlewares/basic-authentication/basic-authentication.js",
     "./middlewares/bearer-authentication/bearer-authentication": "./middlewares/bearer-authentication/bearer-authentication.js",
     "./middlewares/constant/constant": "./middlewares/constant/constant.js",
