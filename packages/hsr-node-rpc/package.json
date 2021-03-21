@@ -1,5 +1,5 @@
 {
-  "name": "hsr-node-rpc",
+  "name": "@no0dles/hsr-node-rpc",
   "repository": {
     "type": "git",
     "url": "https://github.com/no0dles/hsr"
@@ -11,16 +11,15 @@
     "build": "tsc -b"
   },
   "devDependencies": {
-    "typescript": "^4.2.3",
     "@types/node": "^14.14.31",
     "fp-ts": "^2.9.5",
-    "io-ts": "^2.2.16"
+    "io-ts": "^2.2.16",
+    "typescript": "^4.2.3"
   },
   "exports": {
     ".": "./rpc-server.js"
   },
   "peerDependencies": {
-    "hsr-node": ">= 1.0.0",
     "fp-ts": ">= 2.9.5",
     "io-ts": ">= 2.2.16"
   }

@@ -1,5 +1,5 @@
 {
-  "name": "hsr-node",
+  "name": "@no0dles/hsr-node",
   "repository": {
     "type": "git",
     "url": "https://github.com/no0dles/hsr"
@@ -21,7 +21,7 @@
     "./middlewares/logger": "./middlewares/logger/logger.js"
   },
   "devDependencies": {
-    "typescript": "^4.2.3",
-    "@types/node": "^14.14.31"
+    "@types/node": "^14.14.31",
+    "typescript": "^4.2.3"
   }
 }

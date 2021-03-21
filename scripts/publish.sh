@@ -1,0 +1,5 @@
+(cd dist/hsr-browser; npm publish)
+(cd dist/hsr-browser-rpc; npm publish)
+(cd dist/hsr-node; npm publish)
+(cd dist/hsr-node-rpc; npm publish)
+(cd dist/hsr-node-typescript; npm publish)
