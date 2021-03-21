@@ -7,7 +7,7 @@ const config: Config.InitialOptions = {
     '^.+\\.ts$': 'ts-jest',
   },
   rootDir: '../..',
-  testTimeout: 25000,
+  testTimeout: 45000,
   testRegex: 'tests/hsr-tests/.*\\.spec\\.ts$',
   testEnvironment: 'node',
   collectCoverage: true,
