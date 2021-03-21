@@ -17,7 +17,9 @@
   },
   "exports": {
     ".": "./rpc-server.js",
-    "./rpc-server": "./rpc-server.js"
+    "./rpc-server": "./rpc-server.js",
+    "./rpc-node-client": "./rpc-node-client.js",
+    "./build-http-plugin": "./build-http-plugin.js"
   },
   "peerDependencies": {
     "fp-ts": ">= 2.9.5",
