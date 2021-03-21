@@ -19,11 +19,12 @@ export const httpApp = router()
 httpApp.plugin(
   staticPlugin({
     rootDir: join(__dirname, 'static'),
-  }),
+  })
 )
-httpApp.plugin(typescriptPlugin({
-  recursive: true,
-  exclude: ['node_modules', 'dist', 'coverage'],
-  rootDir: join(process.cwd(), '../..'),
-}))
+httpApp.plugin(
+  typescriptPlugin({
+    rootDir: join(__dirname, '../../../..'),
+    entryFiles: [join(__dirname, 'static/main.ts')],
+  })
+)
 httpApp.plugin(buildHttpPlugin(rpcApp))

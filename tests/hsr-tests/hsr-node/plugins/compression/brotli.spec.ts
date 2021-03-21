@@ -44,25 +44,20 @@ describe('node/middlewares/brotli', () => {
       app.plugin(staticPlugin({ rootDir: __dirname }))
       app.plugin(
         typescriptPlugin({
-          recursive: true,
-          rootDir: join(process.cwd(), '../..'),
-          exclude: ['node_modules'],
-        }),
+          rootDir: join(__dirname, '../../../../..'),
+          entryFiles: [join(__dirname, 'brotli-main.ts')],
+        })
       )
 
       await new Promise<void>((resolve, reject) => {
         const srv = getServer(app).listen(0, async () => {
           try {
-
             const page = await browser.newPage()
             page
-              .on('console', message =>
-                console.log(`${message.type().substr(0, 3).toUpperCase()} ${message.text()}`))
+              .on('console', (message) => console.log(`${message.type().substr(0, 3).toUpperCase()} ${message.text()}`))
               .on('pageerror', ({ message }) => console.log(message))
-              .on('response', response =>
-                console.log(`${response.status()} ${response.url()}`))
-              .on('requestfailed', request =>
-                console.log(`${request.failure().errorText} ${request.url()}`))
+              .on('response', (response) => console.log(`${response.status()} ${response.url()}`))
+              .on('requestfailed', (request) => console.log(`${request.failure().errorText} ${request.url()}`))
             await page.goto('http://localhost:' + (srv.address() as any).port + '/brotli.html')
             const response = await page.waitForResponse((res: HTTPResponse) => {
               return res.url().endsWith('/api/test')
