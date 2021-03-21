@@ -11,14 +11,14 @@
     "build": "tsc -b"
   },
   "exports": {
-    "./client": "./client/node-client.js",
-    "./server": "./server/router.js",
+    "./client/node-client": "./client/node-client.js",
+    "./server/router": "./server/router.js",
     "./plugins/static": "./plugins/static/static.js",
-    "./middlewares/basic-authentication": "./middlewares/basic-authentication/basic-authentication.js",
-    "./middlewares/bearer-authentication": "./middlewares/bearer-authentication/bearer-authentication.js",
-    "./middlewares/constant": "./middlewares/constant/constant.js",
-    "./middlewares/cors": "./middlewares/cors/cors.js",
-    "./middlewares/logger": "./middlewares/logger/logger.js"
+    "./middlewares/basic-authentication/bearer-authentication": "./middlewares/basic-authentication/basic-authentication.js",
+    "./middlewares/bearer-authentication/bearer-authentication": "./middlewares/bearer-authentication/bearer-authentication.js",
+    "./middlewares/constant/constant": "./middlewares/constant/constant.js",
+    "./middlewares/cors/cors": "./middlewares/cors/cors.js",
+    "./middlewares/logger/logger": "./middlewares/logger/logger.js"
   },
   "devDependencies": {
     "@types/node": "^14.14.31",
