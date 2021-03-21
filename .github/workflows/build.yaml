@@ -98,6 +98,8 @@ jobs:
         with:
           node-version: 14.x
       - run: npm ci
+        name: "install"
+      - run: npm ci
         name: "install hsr-node"
         working-directory: packages/hsr-node
       - run: npm ci
