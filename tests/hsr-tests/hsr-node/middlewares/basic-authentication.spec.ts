@@ -11,6 +11,7 @@ describe('plugins/base-authentication', () => {
     })
     const cli = nodeClient(app)
     await cli.get()
+    await cli.close()
   })
 
   it('should decode basic auth', async () => {
@@ -21,6 +22,7 @@ describe('plugins/base-authentication', () => {
     })
     const cli = nodeClient(app)
     await cli.header('Authorization', `Basic ${Buffer.from('foo:bar').toString('base64')}`).get()
+    await cli.close()
   })
 
   it('should required decode basic auth', async () => {
@@ -32,6 +34,7 @@ describe('plugins/base-authentication', () => {
     const cli = nodeClient(app)
     const res = await cli.get()
     expect(res.statusCode).toEqual(401)
+    await cli.close()
   })
 
   it('should not accept invalid header', async () => {
@@ -43,5 +46,6 @@ describe('plugins/base-authentication', () => {
     const cli = nodeClient(app)
     const res = await cli.header('Authorization', 'Basic foo:bar').get()
     expect(res.statusCode).toEqual(400)
+    await cli.close()
   })
 })

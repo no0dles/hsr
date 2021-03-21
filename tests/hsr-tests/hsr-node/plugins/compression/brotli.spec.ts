@@ -19,6 +19,7 @@ describe('node/middlewares/brotli', () => {
     expect(res.statusCode).toEqual(200)
     const body = await res.bodyAsJson()
     expect(body).toEqual({ message: 'foo bar bar' })
+    await cli.close()
   })
 
   it('should use brotli if client supports it', async () => {
@@ -31,6 +32,7 @@ describe('node/middlewares/brotli', () => {
     expect(res.statusCode).toEqual(200)
     const body = await res.bodyAsJson()
     expect(body).toEqual({ message: 'foo bar bar' })
+    await cli.close()
   })
 
   it('should work in browser', async () => {

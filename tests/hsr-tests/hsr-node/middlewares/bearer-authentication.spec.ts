@@ -15,6 +15,7 @@ describe('plugins/bearer-authentication', () => {
     const cli = nodeClient(app)
     const res = await cli.path('api/todo').get()
     expect(res.statusCode).toEqual(200)
+    await cli.close()
   })
 
   it('should not allow req if required and no token set', async () => {
@@ -29,6 +30,7 @@ describe('plugins/bearer-authentication', () => {
     const cli = nodeClient(app)
     const res = await cli.path('api/todo').get()
     expect(res.statusCode).toEqual(401)
+    await cli.close()
   })
 
   it('should parse bearer token', async () => {
@@ -52,6 +54,7 @@ describe('plugins/bearer-authentication', () => {
         `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c`
       )
       .get()
+    await cli.close()
   })
 
   it('should return bad response on invalid bearer token', async () => {
@@ -72,6 +75,7 @@ describe('plugins/bearer-authentication', () => {
       )
       .get()
     expect(res.statusCode).toEqual(400)
+    await cli.close()
   })
 
   it('should return bad response on invalid bearer token 2', async () => {
@@ -92,5 +96,6 @@ describe('plugins/bearer-authentication', () => {
       )
       .get()
     expect(res.statusCode).toEqual(400)
+    await cli.close()
   })
 })

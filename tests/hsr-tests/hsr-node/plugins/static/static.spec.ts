@@ -19,6 +19,7 @@ describe('plugins/static', () => {
     const res = await cli.path('static/index.html').get()
     expect(res.statusCode).toEqual(200)
     expect(await res.bodyAsString()).toEqual(indexFile)
+    await cli.close()
   })
 
   it('should not serve nested static files without recursive', async () => {
@@ -31,6 +32,7 @@ describe('plugins/static', () => {
     const cli = nodeClient(app)
     const res = await cli.path('static/css/style.css').get()
     expect(res.statusCode).toEqual(404)
+    await cli.close()
   })
 
   it('should serve nested static files', async () => {
@@ -45,6 +47,7 @@ describe('plugins/static', () => {
     const res = await cli.path('static/css/style.css').get()
     expect(res.statusCode).toEqual(200)
     expect(await res.bodyAsString()).toEqual(styleFile)
+    await cli.close()
   })
 
   it('should serve return 404 on non existing files', async () => {
@@ -57,6 +60,7 @@ describe('plugins/static', () => {
     const cli = nodeClient(app)
     const res = await cli.path('static/index2.html').get()
     expect(res.statusCode).toEqual(404)
+    await cli.close()
   })
 
   it('should serve index on directory', async () => {
@@ -70,5 +74,6 @@ describe('plugins/static', () => {
     const res = await cli.path('static').get()
     expect(res.statusCode).toEqual(200)
     expect(await res.bodyAsString()).toEqual(indexFile)
+    await cli.close()
   })
 })

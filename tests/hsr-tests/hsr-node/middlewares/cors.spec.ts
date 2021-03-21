@@ -19,6 +19,7 @@ describe('plugins/cors', () => {
     const res = await client.path('/api/todo').get()
     expect(res.statusCode).toEqual(200)
     expect(res.header('Access-Control-Allow-Origin')).toEqual('*')
+    await client.close()
   })
 
   it('should not override existing cors headers', async () => {
@@ -36,5 +37,6 @@ describe('plugins/cors', () => {
     expect(res.statusCode).toEqual(200)
     expect(res.header('Access-Control-Allow-Origin')).toEqual('example.com')
     expect(res.header('Access-Control-Allow-Credentials')).toEqual('false')
+    await client.close()
   })
 })

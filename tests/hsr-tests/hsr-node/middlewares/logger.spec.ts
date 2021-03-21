@@ -16,5 +16,6 @@ describe('plugins/logger', () => {
     })
     const cli = nodeClient(app)
     await cli.get('/')
+    await cli.close()
   })
 })

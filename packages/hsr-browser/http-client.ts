@@ -22,4 +22,6 @@ export interface HttpClient<TResponse> {
   patch(path?: string): Promise<TResponse>
 
   delete(path?: string): Promise<TResponse>
+
+  close(): Promise<void>
 }

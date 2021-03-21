@@ -24,4 +24,6 @@ describe('plugins/static-typescript', () => {
     expect(res.statusCode).toEqual(200)
     console.log(await res.bodyAsString())
   })
+
+  afterAll(async () => await cli.close())
 })

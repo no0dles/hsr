@@ -80,4 +80,6 @@ export class HttpClientImpl<TResponse extends HttpClientResponse> implements Htt
     newReq.config.middlewares = [...newReq.config.middlewares, middleware]
     return newReq as any
   }
+
+  async close() {}
 }

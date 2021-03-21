@@ -18,5 +18,6 @@ describe('server', () => {
     const res = await cli.path('api/todo').get()
     expect(res.statusCode).toEqual(200)
     expect(await res.bodyAsString()).toEqual(JSON.stringify({ message: 'hi' }))
+    ser.close()
   })
 })

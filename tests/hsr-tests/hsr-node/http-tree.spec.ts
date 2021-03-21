@@ -16,6 +16,7 @@ describe('server/http-tree', () => {
     const res = await cli.path('/api/todo/1').get()
     expect(res.statusCode).toEqual(200)
     expect(await res.bodyAsString()).toEqual('todo')
+    await cli.close()
   })
 
   it('should handle multiple path segements', async () => {
@@ -24,6 +25,7 @@ describe('server/http-tree', () => {
     const cli = nodeClient(app)
     const res = await cli.path('/api/todo').get()
     expect(res.statusCode).toEqual(200)
+    await cli.close()
   })
 
   it('should handle 404', async () => {
@@ -31,5 +33,6 @@ describe('server/http-tree', () => {
     const cli = nodeClient(app)
     const res = await cli.path('/api/todo').get()
     expect(res.statusCode).toEqual(404)
+    await cli.close()
   })
 })

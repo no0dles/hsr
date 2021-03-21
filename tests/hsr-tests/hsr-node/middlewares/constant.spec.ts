@@ -12,5 +12,6 @@ describe('plugins/constant', () => {
     const cli = nodeClient(app)
     const res = await cli.get()
     expect(res.statusCode).toEqual(200)
+    await cli.close()
   })
 })
