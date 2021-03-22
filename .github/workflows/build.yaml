@@ -109,6 +109,9 @@ jobs:
         name: "install hsr-node-typescript"
         working-directory: packages/hsr-node-typescript
       - run: npm ci
+        name: "install hsr-node-static"
+        working-directory: packages/hsr-node-static
+      - run: npm ci
         name: "install hsr-tests"
         working-directory: tests/hsr-tests
       - run: npm run build
