@@ -5,5 +5,4 @@ export interface HttpMessage {
   header(name: string): string | string[] | null
   hasHeaderValue(name: string, value: string): boolean
   headerAsString(name: string): string | null
-  query(name: string): string | null
 }

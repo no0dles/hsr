@@ -16,8 +16,22 @@ export class BrowserHttpAdapter implements HttpAdapter<HttpBrowserClientResponse
         }
       }
     }
+    const searchParams = new URLSearchParams()
+    for (const key of Object.keys(config.query)) {
+      const values = config.query[key]
+      if (typeof values === 'string') {
+        searchParams.set(key, values)
+      } else {
+        for (const value of values) {
+          searchParams.append(key, value)
+        }
+      }
+    }
     const res = await fetch(
-      new URL(config.paths.join('/'), !config.baseUrl ? window.location.href : config.baseUrl).toString(),
+      new URL(
+        config.paths.join('/') + (Object.keys(config.query).length > 0 ? `?${searchParams.toString()}` : ''),
+        !config.baseUrl ? window.location.href : config.baseUrl
+      ).toString(),
       {
         method,
         headers,

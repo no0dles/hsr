@@ -82,4 +82,12 @@ export class HttpClientImpl<TResponse extends HttpClientResponse> implements Htt
   }
 
   async close() {}
+
+  query(name: string, value: string | string[]): this {
+    const newReq = Object.create(this) as HttpClientImpl<TResponse>
+    newReq.config = Object.create(newReq.config)
+    newReq.config.query = { ...newReq.config.query }
+    newReq.config.query[name] = value
+    return newReq as this
+  }
 }

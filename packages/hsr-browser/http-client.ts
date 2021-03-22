@@ -7,6 +7,8 @@ export interface HttpClient<TResponse> {
 
   header(name: string, value: string | string[]): this
 
+  query(name: string, value: string | string[]): this
+
   body(body: string): HttpClient<TResponse>
 
   options(path?: string): Promise<TResponse>

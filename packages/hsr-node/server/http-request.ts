@@ -5,4 +5,6 @@ export interface HttpRequest extends HttpMessage {
   method: HttpMethod
   url: string
   paths: string[]
+
+  query(name: string): string | null
 }
