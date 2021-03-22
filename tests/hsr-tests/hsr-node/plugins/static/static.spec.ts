@@ -19,6 +19,7 @@ describe('plugins/static', () => {
     const res = await cli.path('static/index.html').get()
     expect(res.statusCode).toEqual(200)
     expect(await res.bodyAsString()).toEqual(indexFile)
+    expect(await res.header('content-type')).toEqual('text/html')
     await cli.close()
   })
 
@@ -47,6 +48,7 @@ describe('plugins/static', () => {
     const res = await cli.path('static/css/style.css').get()
     expect(res.statusCode).toEqual(200)
     expect(await res.bodyAsString()).toEqual(styleFile)
+    expect(await res.header('content-type')).toEqual('text/css')
     await cli.close()
   })
 
@@ -74,6 +76,23 @@ describe('plugins/static', () => {
     const res = await cli.path('static').get()
     expect(res.statusCode).toEqual(200)
     expect(await res.bodyAsString()).toEqual(indexFile)
+    expect(await res.header('content-type')).toEqual('text/html')
+    await cli.close()
+  })
+
+  it('should serve file with query arg', async () => {
+    const app = router()
+    app.path('static').plugin(
+      staticPlugin({
+        rootDir: join(__dirname, 'assets'),
+        recursive: true,
+      })
+    )
+    const cli = nodeClient(app)
+    const res = await cli.path('static/css/style.css?cache=0.1').get()
+    expect(res.statusCode).toEqual(200)
+    expect(await res.bodyAsString()).toEqual(styleFile)
+    expect(await res.header('content-type')).toEqual('text/css')
     await cli.close()
   })
 })

@@ -1,5 +1,6 @@
 import { IncomingMessage } from 'http'
 import { Readable } from 'stream'
+import { URLSearchParams } from 'url'
 import { HttpRequest } from './http-request'
 import { HttpMethod } from '../../hsr-browser/http-method'
 
@@ -20,6 +21,7 @@ export function readableToBuffer(readable: Readable): Promise<Buffer> {
 }
 
 export class HttpRequestImpl implements HttpRequest {
+  private readonly searchParams: URLSearchParams
   method: HttpMethod
   url: string
   paths: string[]
@@ -27,7 +29,22 @@ export class HttpRequestImpl implements HttpRequest {
   constructor(private message: IncomingMessage) {
     this.url = this.message.url ?? ''
     this.method = this.message.method as HttpMethod
-    this.paths = this.url.split('/').filter((p) => !!p)
+
+    const queryIndex = this.url.indexOf('?')
+    if (queryIndex >= 0) {
+      this.searchParams = new URLSearchParams(this.url.substr(queryIndex))
+      this.paths = this.url
+        .substr(0, queryIndex)
+        .split('/')
+        .filter((p) => !!p)
+    } else {
+      this.searchParams = new URLSearchParams()
+      this.paths = this.url.split('/').filter((p) => !!p)
+    }
+  }
+
+  query(name: string): string | null {
+    return this.searchParams.get(name)
   }
 
   bodyAsBuffer(): Promise<Buffer> {
