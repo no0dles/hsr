@@ -1,12 +1,12 @@
 import { router } from '../../../../../packages/hsr-node/server/router'
 import { nodeClient } from '../../../../../packages/hsr-node/client/node-client'
 import { brotli, nodeBrotliClient } from '../../../../../packages/hsr-node/middlewares/compression/brotli'
-import { staticPlugin } from '../../../../../packages/hsr-node/plugins/static/static'
 import { typescriptPlugin } from '../../../../../packages/hsr-node-typescript/typescript-plugin'
 import { join } from 'path'
 import * as puppeteer from 'puppeteer'
 import { HTTPResponse } from 'puppeteer'
 import { listenHttp } from '../../../../../packages/hsr-node/server/server'
+import { staticPlugin } from '../../../../../packages/hsr-node-static'
 
 describe('node/middlewares/brotli', () => {
   it('should not use brotli if client does not support it', async () => {

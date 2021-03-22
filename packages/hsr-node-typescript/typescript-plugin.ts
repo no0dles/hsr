@@ -1,6 +1,4 @@
 import { HttpPlugin } from '../hsr-node/server/http-plugin'
-import { readFilesInDirectory } from '../hsr-node/plugins/static/static'
-import { join } from 'path'
 import { readFileSync } from 'fs'
 import {
   ModuleKind,

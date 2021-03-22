@@ -20,6 +20,9 @@
       "path": "./packages/hsr-node-typescript/tsconfig.json"
     },
     {
+      "path": "./packages/hsr-node-static/tsconfig.json"
+    },
+    {
       "path": "./tests/hsr-tests/tsconfig.json"
     }
   ]

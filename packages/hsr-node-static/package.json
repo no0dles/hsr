@@ -1,0 +1,23 @@
+{
+  "name": "@no0dles/hsr-node-static",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/no0dles/hsr"
+  },
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc -b"
+  },
+  "devDependencies": {
+    "@types/mime-db": "^1.43.0",
+    "@types/node": "^14.14.31",
+    "typescript": "^4.2.3"
+  },
+  "exports": {
+    ".": "./index.js"
+  },
+  "dependencies": {
+    "mime-db": "^1.46.0"
+  }
+}
