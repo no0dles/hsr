@@ -2,10 +2,14 @@ import { HttpPlugin } from '../hsr-node/server/http-plugin'
 import { createReadStream, readdirSync } from 'fs'
 import { join, extname } from 'path'
 import * as db from 'mime-db'
+import { HttpHandler } from '../hsr-node/server/http-handler'
+import { HttpRequest } from '../hsr-node/server/http-request'
+import { HttpResponse } from '../hsr-node/server/http-response'
 
 export interface HttpStaticRouterDirectoryOptions {
   rootDir: string
   recursive?: boolean
+  indexFallback?: boolean
   exclude?: string[]
 }
 
@@ -31,16 +35,17 @@ export function staticPlugin(options: HttpStaticRouterDirectoryOptions): HttpPlu
 
     for (const entry of entries) {
       const mimeType = getExtension(entry.filename, 'application/octet-stream')
-      router.path(entry.relativePath).get((req, res) => {
+      const handler: HttpHandler<HttpRequest, HttpResponse, {}> = (req, res) => {
         return res.statusCode(200).header('content-type', mimeType).body(createReadStream(entry.absolutePath))
-      })
+      }
 
+      router.path(entry.relativePath).get(handler)
       if (entry.filename === 'index.html') {
-        router
-          .path(entry.paths.join('/'))
-          .get((req, res) =>
-            res.statusCode(200).header('content-type', mimeType).body(createReadStream(entry.absolutePath))
-          )
+        if (options.indexFallback) {
+          router.wildcard().get(handler)
+        } else {
+          router.path(entry.paths.join('/')).get(handler)
+        }
       }
     }
     return router

@@ -27,6 +27,19 @@ export class HttpRouterImpl implements HttpRouter<any, any, any> {
     return [...this.pathSegments, ...paths]
   }
 
+  wildcard(): HttpRouter<any, any, any> {
+    return new HttpRouterImpl(
+      this.tree,
+      [
+        ...this.pathSegments,
+        {
+          type: 'wildcard',
+        },
+      ],
+      [...this.middlewares]
+    )
+  }
+
   param<K>(name: keyof K): HttpRouter<any, any, any> {
     return new HttpRouterImpl(
       this.tree,

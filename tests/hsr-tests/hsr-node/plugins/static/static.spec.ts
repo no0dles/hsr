@@ -95,4 +95,36 @@ describe('plugins/static', () => {
     expect(await res.header('content-type')).toEqual('text/css')
     await cli.close()
   })
+
+  it('should serve file index.html as fallback for deep route', async () => {
+    const app = router()
+    app.path('static').plugin(
+      staticPlugin({
+        rootDir: join(__dirname, 'assets'),
+        recursive: true,
+        indexFallback: true,
+      })
+    )
+    const cli = nodeClient(app)
+    const res = await cli.path('static/foo/bar').get()
+    expect(res.statusCode).toEqual(200)
+    expect(await res.bodyAsString()).toEqual(indexFile)
+    expect(await res.header('content-type')).toEqual('text/html')
+    await cli.close()
+  })
+
+  it('should serve file not index.html as fallback for upper route', async () => {
+    const app = router()
+    app.path('static').plugin(
+      staticPlugin({
+        rootDir: join(__dirname, 'assets'),
+        recursive: true,
+        indexFallback: true,
+      })
+    )
+    const cli = nodeClient(app)
+    const res = await cli.path('foo').get()
+    expect(res.statusCode).toEqual(404)
+    await cli.close()
+  })
 })

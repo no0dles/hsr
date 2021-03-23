@@ -5,11 +5,12 @@ import { HttpRequest } from './http-request'
 import { HttpResponse } from './http-response'
 import { HttpMiddlewareContextImpl } from './http-middleware-context-impl'
 
-export type PathSegment = { path: string; type: 'path' } | { param: string; type: 'param' }
+export type PathSegment = { path: string; type: 'path' } | { param: string; type: 'param' } | { type: 'wildcard' }
 
 interface HttpTreeNode {
   childNodes: { [key: string]: HttpTreeNode }
   paramNode: { node: HttpTreeNode; name: string } | null
+  wildcardNode: HttpTreeNode | null
   middlewares: HttpMiddleware<any, any, any, any>[]
   handlers: {
     [key: string]: HttpHandler<any, any, any>
@@ -20,6 +21,7 @@ function newNode(): HttpTreeNode {
   return {
     childNodes: {},
     middlewares: [],
+    wildcardNode: null,
     handlers: {},
     paramNode: null,
   }
@@ -43,13 +45,17 @@ export class HttpTree {
         } else {
           currentNode.childNodes[segment.path] = nextNode
         }
-      } else {
-        currentNode.paramNode = { node: nextNode, name: segment.param } // TODO check
+      } else if (segment.type === 'param') {
+        currentNode.paramNode = { node: nextNode, name: segment.param } // TODO check already assigned
+        // TODO warn if wildcard node is set
+      } else if (segment.type === 'wildcard') {
+        currentNode.wildcardNode = nextNode // TODO check if already assigned
+        // TODO warn if param node is set
       }
       currentNode = nextNode
     }
     currentNode.middlewares = middlewares
-    currentNode.handlers[method] = handler // TODO check
+    currentNode.handlers[method] = handler // TODO check already assigned
   }
 
   private handleMiddlewares(
@@ -91,6 +97,9 @@ export class HttpTree {
       } else if (currentNode.paramNode) {
         params[currentNode.paramNode.name] = path
         currentNode = currentNode.paramNode.node
+      } else if (currentNode.wildcardNode) {
+        currentNode = currentNode.wildcardNode
+        break
       } else {
         return response.statusCode(404)
       }

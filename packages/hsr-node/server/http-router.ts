@@ -26,4 +26,6 @@ export interface HttpRouter<TReq extends HttpRequest, TRes, TParams> {
   plugin<TRouter>(plugin: HttpPlugin<TRouter>): TRouter & HttpRouter<TReq, TRes, TParams>
 
   param<K>(name: keyof K): HttpRouter<TReq & HttpRequest, TRes, TParams & Record<typeof name, string>>
+
+  wildcard(): HttpRouter<TReq, TRes, TParams>
 }
