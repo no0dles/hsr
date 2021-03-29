@@ -1,6 +1,6 @@
-import { router } from '../../../../packages/hsr-node/server/router'
-import { constant } from '../../../../packages/hsr-node/middlewares/constant/constant'
-import { nodeClient } from '../../../../packages/hsr-node/client/node-client'
+import { nodeClient } from '@no0dles/hsr-node/client/node-client'
+import { router } from '@no0dles/hsr-node/server/router'
+import { constant } from '@no0dles/hsr-node/middlewares/constant/constant'
 
 describe('plugins/constant', () => {
   it('should', async () => {

@@ -1,6 +1,6 @@
-import { router } from '../../../../packages/hsr-node/server/router'
-import { bearerAuthentication } from '../../../../packages/hsr-node/middlewares/bearer-authentication/bearer-authentication'
-import { nodeClient } from '../../../../packages/hsr-node/client/node-client'
+import { nodeClient } from '@no0dles/hsr-node/client/node-client'
+import { bearerAuthentication } from '@no0dles/hsr-node/middlewares/bearer-authentication/bearer-authentication'
+import { router } from '@no0dles/hsr-node/server/router'
 
 describe('plugins/bearer-authentication', () => {
   it('should skip if not required and no token set', async () => {

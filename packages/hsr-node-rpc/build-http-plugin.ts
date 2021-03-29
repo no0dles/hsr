@@ -1,5 +1,5 @@
-import type { HttpPlugin } from '../hsr-node/server/http-plugin'
 import { RpcServer } from './rpc-server'
+import { HttpPlugin } from '@no0dles/hsr-node/server/http-plugin'
 
 export function buildHttpPlugin(rpcServer: RpcServer<any, any>): HttpPlugin<any> {
   return (router) => {

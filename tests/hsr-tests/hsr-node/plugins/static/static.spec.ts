@@ -1,8 +1,8 @@
-import { router } from '../../../../../packages/hsr-node/server/router'
-import { nodeClient } from '../../../../../packages/hsr-node/client/node-client'
 import { readFileSync } from 'fs'
 import { join } from 'path'
-import { staticPlugin } from '../../../../../packages/hsr-node-static'
+import { nodeClient } from '@no0dles/hsr-node/client/node-client'
+import { router } from '@no0dles/hsr-node/server/router'
+import { staticPlugin } from '@no0dles/hsr-node-static/index'
 
 describe('plugins/static', () => {
   const indexFile = readFileSync(join(__dirname, 'assets', 'index.html')).toString()

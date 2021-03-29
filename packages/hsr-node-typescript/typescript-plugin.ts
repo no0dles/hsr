@@ -1,4 +1,3 @@
-import { HttpPlugin } from '../hsr-node/server/http-plugin'
 import { readFileSync } from 'fs'
 import {
   ModuleKind,
@@ -14,6 +13,7 @@ import {
 import { TypescriptPluginOptions } from './typescript-plugin-options'
 import * as path from 'path'
 import * as fs from 'fs'
+import { HttpPlugin } from '@no0dles/hsr-node/server/http-plugin'
 
 interface TypescriptEntry {
   sourceFile: SourceFile

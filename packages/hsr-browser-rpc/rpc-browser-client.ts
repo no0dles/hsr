@@ -1,6 +1,6 @@
 import { RpcServerInterface } from './rpc-server-interface'
-import { browserClient } from '../hsr-browser/browser-client'
 import { RpcClient } from './rpc-client'
+import { browserClient } from '@no0dles/hsr-browser/browser-client'
 
 export function rpcBrowserClient<T extends RpcServerInterface<any, any>>(url?: string): RpcClient<T> {
   const client = browserClient(url)

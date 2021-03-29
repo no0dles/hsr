@@ -1,6 +1,6 @@
-import type { RpcServerInterface } from '../hsr-browser-rpc/rpc-server-interface'
 import { RpcNodeServerImpl } from './rpc-node-server-impl'
 import { Type } from 'io-ts'
+import { RpcServerInterface } from '@no0dles/hsr-browser-rpc/rpc-server-interface'
 
 export interface RpcServer<T, D> extends RpcServerInterface<T, D> {
   _calls: Readonly<T>
@@ -9,7 +9,7 @@ export interface RpcServer<T, D> extends RpcServerInterface<T, D> {
   cmd<C, R, I>(
     path: keyof C,
     decoder: Type<I>,
-    handler: (req: I) => R,
+    handler: (req: I) => R
   ): RpcServer<T & Record<typeof path, R>, D & Record<typeof path, I>>
 
   execute<P extends string & keyof T & keyof D>(name: P, arg: D[P]): Promise<T[P]>
@@ -18,4 +18,3 @@ export interface RpcServer<T, D> extends RpcServerInterface<T, D> {
 export function rpcServer(): RpcServer<{}, {}> {
   return new RpcNodeServerImpl()
 }
-

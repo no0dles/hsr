@@ -12,6 +12,10 @@
     ],
     "rootDir": ".",
     "baseUrl": ".",
+    "paths": {
+      "@no0dles/hsr-node/*": ["../hsr-node/*"],
+      "@no0dles/hsr-browser-rpc/*": ["../hsr-browser-rpc/*"]
+    },
     "tsBuildInfoFile": "../../dist/hsr-node-rpc.tsbuildinfo"
   },
   "references": [

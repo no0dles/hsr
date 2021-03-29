@@ -11,8 +11,17 @@
     "strictNullChecks": true,
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
+    "esModuleInterop": true,
     "baseUrl": ".",
     "rootDir": ".",
+    "paths": {
+      "@no0dles/hsr-node/*": ["../../packages/hsr-node/*"],
+      "@no0dles/hsr-node-rpc/*": ["../../packages/hsr-node-rpc/*"],
+      "@no0dles/hsr-node-typescript/*": ["../../packages/hsr-node-typescript/*"],
+      "@no0dles/hsr-node-static/*": ["../../packages/hsr-node-static/*"],
+      "@no0dles/hsr-browser/*": ["../../packages/hsr-browser/*"],
+      "@no0dles/hsr-browser-rpc/*": ["../../packages/hsr-browser-rpc/*"]
+    },
     "tsBuildInfoFile": "../../dist/hsr-tests.tsbuildinfo"
   },
   "references": [

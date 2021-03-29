@@ -1,7 +1,7 @@
 import { httpApp } from './server'
-import * as puppeteer from 'puppeteer'
+import puppeteer from 'puppeteer'
 import { HTTPResponse } from 'puppeteer'
-import { listenHttp } from '../../../../packages/hsr-node/server/server'
+import { listenHttp } from '@no0dles/hsr-node/server/server'
 
 describe('node/rpc', () => {
   it('should work with rpc in browser', async () => {

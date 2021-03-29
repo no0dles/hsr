@@ -1,9 +1,9 @@
-import { HttpClient } from '../../hsr-browser/http-client'
 import { Server } from 'http'
-import { HttpClientImpl } from '../../hsr-browser/http-client-impl'
 import { NodeHttpAdapter } from '../client/http-node-adapter'
-import { HttpClientMiddleware } from '../../hsr-browser/http-client-middleware'
 import { HttpNodeClientResponse } from '../client/http-node-client-response'
+import { HttpClientMiddleware } from '@no0dles/hsr-browser/http-client-middleware'
+import { HttpClient } from '@no0dles/hsr-browser/http-client'
+import { HttpClientImpl } from '@no0dles/hsr-browser/http-client-impl'
 
 export interface HttpRouterConfig {
   query: { [key: string]: string | string[] }

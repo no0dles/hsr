@@ -1,6 +1,6 @@
-import { router } from '../../../../packages/hsr-node/server/router'
-import { nodeClient } from '../../../../packages/hsr-node/client/node-client'
-import { logger } from '../../../../packages/hsr-node/middlewares/logger/logger'
+import { nodeClient } from '@no0dles/hsr-node/client/node-client'
+import { router } from '@no0dles/hsr-node/server/router'
+import { logger } from '@no0dles/hsr-node/middlewares/logger/logger'
 
 describe('plugins/logger', () => {
   it('should log request', async () => {

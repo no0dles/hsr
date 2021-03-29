@@ -1,6 +1,6 @@
-import { router } from '../../../../packages/hsr-node/server/router'
-import { basicAuthentication } from '../../../../packages/hsr-node/middlewares/basic-authentication/basic-authentication'
-import { nodeClient } from '../../../../packages/hsr-node/client/node-client'
+import { nodeClient } from '@no0dles/hsr-node/client/node-client'
+import { router } from '@no0dles/hsr-node/server/router'
+import { basicAuthentication } from '@no0dles/hsr-node/middlewares/basic-authentication/basic-authentication'
 
 describe('plugins/base-authentication', () => {
   it('should allow when not required', async () => {

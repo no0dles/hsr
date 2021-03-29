@@ -1,7 +1,3 @@
-import { Readable } from 'stream'
-import { router } from '../../../packages/hsr-node/server/router'
-import { nodeClient } from '../../../packages/hsr-node/client/node-client'
-
 describe('server/http-request', () => {
   it('should handle stream', async () => {
     // const app = router()

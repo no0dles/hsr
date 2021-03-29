@@ -11,7 +11,9 @@
   },
   "license": "MIT",
   "exports": {
-    ".": "./browser-client.js"
+    ".": "./browser-client.js",
+    "./http-method": "./http-method.js",
+    "./http-message": "./http-message.js"
   },
   "devDependencies": {
     "typescript": "^4.2.3"

@@ -1,9 +1,9 @@
-import { rpcServer } from '../../../packages/hsr-node-rpc/rpc-server'
 import { type, string } from 'io-ts'
-import { rpcNodeClient } from '../../../packages/hsr-node-rpc/rpc-node-client'
-import { router } from '../../../packages/hsr-node/server/router'
-import { buildHttpPlugin } from '../../../packages/hsr-node-rpc/build-http-plugin'
-import { listenHttp } from '../../../packages/hsr-node/server/server'
+import { buildHttpPlugin } from '@no0dles/hsr-node-rpc/build-http-plugin'
+import { router } from '@no0dles/hsr-node/server/router'
+import { rpcNodeClient } from '@no0dles/hsr-node-rpc/rpc-node-client'
+import { rpcServer } from '@no0dles/hsr-node-rpc/rpc-server'
+import { listenHttp } from '@no0dles/hsr-node/server/server'
 
 describe('rpc', () => {
   it('should', async () => {

@@ -1,7 +1,7 @@
-import { router } from '../../../packages/hsr-node/server/router'
-import { nodeClient } from '../../../packages/hsr-node/client/node-client'
 import { join } from 'path'
-import { typescriptPlugin } from '../../../packages/hsr-node-typescript/typescript-plugin'
+import { nodeClient } from '@no0dles/hsr-node/client/node-client'
+import { router } from '@no0dles/hsr-node/server/router'
+import { typescriptPlugin } from '@no0dles/hsr-node-typescript/typescript-plugin'
 
 describe('plugins/static-typescript', () => {
   const app = router()

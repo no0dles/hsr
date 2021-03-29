@@ -1,10 +1,10 @@
 import { string, type } from 'io-ts'
-import { rpcServer } from '../../../../packages/hsr-node-rpc/rpc-server'
-import { router } from '../../../../packages/hsr-node/server/router'
 import { join } from 'path'
-import { typescriptPlugin } from '../../../../packages/hsr-node-typescript/typescript-plugin'
-import { buildHttpPlugin } from '../../../../packages/hsr-node-rpc/build-http-plugin'
-import { staticPlugin } from '../../../../packages/hsr-node-static'
+import { rpcServer } from '@no0dles/hsr-node-rpc/rpc-server'
+import { buildHttpPlugin } from '@no0dles/hsr-node-rpc/build-http-plugin'
+import { router } from '@no0dles/hsr-node/server/router'
+import { staticPlugin } from '@no0dles/hsr-node-static/index'
+import { typescriptPlugin } from '@no0dles/hsr-node-typescript/typescript-plugin'
 
 const fooDecoder = type({
   value: string,

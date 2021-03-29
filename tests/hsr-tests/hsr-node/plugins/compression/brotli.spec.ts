@@ -1,12 +1,12 @@
-import { router } from '../../../../../packages/hsr-node/server/router'
-import { nodeClient } from '../../../../../packages/hsr-node/client/node-client'
-import { brotli, nodeBrotliClient } from '../../../../../packages/hsr-node/middlewares/compression/brotli'
-import { typescriptPlugin } from '../../../../../packages/hsr-node-typescript/typescript-plugin'
 import { join } from 'path'
-import * as puppeteer from 'puppeteer'
+import puppeteer from 'puppeteer'
 import { HTTPResponse } from 'puppeteer'
-import { listenHttp } from '../../../../../packages/hsr-node/server/server'
-import { staticPlugin } from '../../../../../packages/hsr-node-static'
+import { nodeClient } from '@no0dles/hsr-node/client/node-client'
+import { router } from '@no0dles/hsr-node/server/router'
+import { staticPlugin } from '@no0dles/hsr-node-static/index'
+import { typescriptPlugin } from '@no0dles/hsr-node-typescript/typescript-plugin'
+import { brotli, nodeBrotliClient } from '@no0dles/hsr-node/middlewares/compression/brotli'
+import { listenHttp } from '@no0dles/hsr-node/server/server'
 
 describe('node/middlewares/brotli', () => {
   it('should not use brotli if client does not support it', async () => {

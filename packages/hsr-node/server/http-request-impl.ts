@@ -2,7 +2,7 @@ import { IncomingMessage } from 'http'
 import { Readable } from 'stream'
 import { URLSearchParams } from 'url'
 import { HttpRequest } from './http-request'
-import { HttpMethod } from '../../hsr-browser/http-method'
+import { HttpMethod } from '@no0dles/hsr-browser/http-method'
 
 export function readableToBuffer(readable: Readable): Promise<Buffer> {
   return new Promise<Buffer>((resolve, reject) => {

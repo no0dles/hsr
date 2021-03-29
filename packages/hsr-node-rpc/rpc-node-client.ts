@@ -1,6 +1,6 @@
-import type { RpcClient } from '../hsr-browser-rpc/rpc-client'
-import type { RpcServerInterface } from '../hsr-browser-rpc/rpc-server-interface'
-import { nodeClient } from '../hsr-node/client/node-client'
+import { nodeClient } from '@no0dles/hsr-node/client/node-client'
+import { RpcServerInterface } from '@no0dles/hsr-browser-rpc/rpc-server-interface'
+import { RpcClient } from '@no0dles/hsr-browser-rpc/rpc-client'
 
 export function rpcNodeClient<T extends RpcServerInterface<any, any>>(url: string): RpcClient<T> {
   const client = nodeClient(url)

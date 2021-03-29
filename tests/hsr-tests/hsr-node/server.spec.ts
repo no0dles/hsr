@@ -1,6 +1,6 @@
-import { router } from '../../../packages/hsr-node/server/router'
-import { nodeClient } from '../../../packages/hsr-node/client/node-client'
-import { listenHttp } from '../../../packages/hsr-node/server/server'
+import { nodeClient } from '@no0dles/hsr-node/client/node-client'
+import { router } from '@no0dles/hsr-node/server/router'
+import { listenHttp } from '@no0dles/hsr-node/server/server'
 
 describe('server', () => {
   it('should run server', async () => {

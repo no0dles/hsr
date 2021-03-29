@@ -1,6 +1,6 @@
-import { router } from '../../../../packages/hsr-node/server/router'
-import { cors } from '../../../../packages/hsr-node/middlewares/cors/cors'
-import { nodeClient } from '../../../../packages/hsr-node/client/node-client'
+import { nodeClient } from '@no0dles/hsr-node/client/node-client'
+import { router } from '@no0dles/hsr-node/server/router'
+import { cors } from '@no0dles/hsr-node/middlewares/cors/cors'
 
 describe('plugins/cors', () => {
   it('should add cors headers', async () => {
