@@ -12,12 +12,11 @@ jobs:
           node-version: '12.x'
           registry-url: 'https://npm.pkg.github.com'
           scope: '@no0dles'
-      - run: ./scripts/install.sh
-      - run: ./scripts/build.sh
+      - run: npx hammerkit build
       - name: Get the version
         id: get_version
         run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
-      - run: ./scripts/publish.sh
+      - run: npx hammerkit publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VERSION: ${{ steps.get_version.outputs.VERSION }}

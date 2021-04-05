@@ -4,7 +4,7 @@ import { HTTPResponse } from 'puppeteer'
 import { listenHttp } from '@no0dles/hsr-node/server/server'
 
 describe('node/rpc', () => {
-  it('should work with rpc in browser', async () => {
+  xit('should work with rpc in browser', async () => {
     const browser = await puppeteer.launch()
     try {
       const page = await browser.newPage()

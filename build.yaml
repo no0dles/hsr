@@ -1,0 +1,38 @@
+envs:
+  NODE_VERSION: 14.16.0
+
+tasks:
+  test:
+    description: test packages
+    cmds:
+      - run: hsr-tests:test
+
+  publish:
+    description: publish npm package
+    cmds:
+      - run: hsr-browser:npm:publish
+      - run: hsr-node:npm:publish
+      - run: hsr-node-rpc:npm:publish
+      - run: hsr-browser:npm:publish
+      - run: hsr-node-static:npm:publish
+      - run: hsr-node-typescript:npm:publish
+
+  build:
+    description: build hsr
+    deps:
+      - hsr-browser:build
+      - hsr-browser-rpc:build
+      - hsr-node:build
+      - hsr-node-rpc:build
+      - hsr-node-static:build
+      - hsr-node-typescript:build
+      - hsr-tests:build
+
+references:
+  hsr-node: ./packages/hsr-node/build.yaml
+  hsr-node-rpc: ./packages/hsr-node-rpc/build.yaml
+  hsr-node-static: ./packages/hsr-node-static/build.yaml
+  hsr-node-typescript: ./packages/hsr-node-typescript/build.yaml
+  hsr-browser: ./packages/hsr-browser/build.yaml
+  hsr-browser-rpc: ./packages/hsr-browser-rpc/build.yaml
+  hsr-tests: ./tests/hsr-tests/build.yaml

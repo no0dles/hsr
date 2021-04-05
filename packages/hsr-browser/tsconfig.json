@@ -11,9 +11,9 @@
       "dom",
       "es6"
     ],
-    "rootDir": ".",
-    "baseUrl": ".",
-    "tsBuildInfoFile": "../../dist/hsr-browser.tsbuildinfo"
+    "rootDir": "src",
+    "baseUrl": "src",
+    "tsBuildInfoFile": "../../dist/hsr-browser/tsbuildinfo"
   },
   "exclude": [
     "**/*.spec.ts"

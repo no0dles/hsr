@@ -4,7 +4,7 @@ on:
     branches:
 
 jobs:
-  hsr-browser:
+  build:
     name: Build hsr-browser
     runs-on: ubuntu-20.04
     timeout-minutes: 5
@@ -13,112 +13,16 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 14.x
-      - run: npm ci
-        name: "install hsr-browser"
-        working-directory: packages/hsr-browser
-      - run: npm run build
-        name: "build hsr-browser"
-        working-directory: packages/hsr-browser
-  hsr-browser-rpc:
-    name: Build hsr-browser-rpc
+      - run: npx hammerkit build
+
+  test:
+    name: Build hsr-browser
     runs-on: ubuntu-20.04
-    needs: [hsr-browser]
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
           node-version: 14.x
-      - run: npm ci
-        name: "install hsr-browser-rpc"
-        working-directory: packages/hsr-browser-rpc
-      - run: npm run build
-        name: "build hsr-browser-rpc"
-        working-directory: packages/hsr-browser-rpc
-  hsr-node:
-    name: Build hsr-node
-    runs-on: ubuntu-20.04
-    timeout-minutes: 5
-    needs: [ hsr-browser ]
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14.x
-      - run: npm ci
-        name: "install hsr-node"
-        working-directory: packages/hsr-node
-      - run: npm run build
-        name: "build hsr-node"
-        working-directory: packages/hsr-node
-  hsr-node-rpc:
-    name: Build hsr-node-rpc
-    runs-on: ubuntu-20.04
-    timeout-minutes: 5
-    needs: [ hsr-node, hsr-browser-rpc ]
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14.x
-      - run: npm ci
-        name: "install hsr-node"
-        working-directory: packages/hsr-node
-      - run: npm ci
-        name: "install hsr-node-rpc"
-        working-directory: packages/hsr-node-rpc
-      - run: npm run build
-        name: "build hsr-node-rpc"
-        working-directory: packages/hsr-node-rpc
-  hsr-node-typescript:
-    name: Build hsr-node-typescript
-    runs-on: ubuntu-20.04
-    timeout-minutes: 5
-    needs: [ hsr-node ]
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14.x
-      - run: npm ci
-        name: "install hsr-node"
-        working-directory: packages/hsr-node
-      - run: npm ci
-        name: "install hsr-node-typescript"
-        working-directory: packages/hsr-node-typescript
-      - run: npm run build
-        name: "build hsr-node-typescript"
-        working-directory: packages/hsr-node-typescript
-  hsr-tests:
-    name: Build hsr-tests
-    runs-on: ubuntu-20.04
-    timeout-minutes: 5
-    needs: [hsr-browser,hsr-browser-rpc,hsr-node,hsr-node-rpc,hsr-node-typescript]
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14.x
-      - run: npm ci
-        name: "install"
-      - run: npm ci
-        name: "install hsr-node"
-        working-directory: packages/hsr-node
-      - run: npm ci
-        name: "install hsr-node-rpc"
-        working-directory: packages/hsr-node-rpc
-      - run: npm ci
-        name: "install hsr-node-typescript"
-        working-directory: packages/hsr-node-typescript
-      - run: npm ci
-        name: "install hsr-node-static"
-        working-directory: packages/hsr-node-static
-      - run: npm ci
-        name: "install hsr-tests"
-        working-directory: tests/hsr-tests
-      - run: npm run build
-        name: "build hsr-tests"
-        working-directory: tests/hsr-tests
-      - run: npm test
-        name: "test hsr-tests"
-        working-directory: tests/hsr-tests
+      - run: npx hammerkit test
+

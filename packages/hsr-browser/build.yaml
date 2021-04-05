@@ -1,0 +1,21 @@
+envs:
+  NODE_VERSION: 14.16.0
+
+tasks:
+  build:
+    description: build source code
+    deps: [npm:install]
+    generates:
+      - ../../dist/hsr-browser
+    mounts:
+      - node_modules
+    src:
+      - package.json
+      - tsconfig.json
+      - src
+    cmds:
+    - node_modules/.bin/tsc -b
+    - cp package.json ../../dist/hsr-browser
+
+includes:
+  npm: ../../build.npm.yaml

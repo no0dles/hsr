@@ -1,0 +1,17 @@
+tasks:
+  publish:
+    envs:
+      VERSION: $VERSION
+    cmds:
+      - npm version $VERSION
+      - npm publish
+
+  install:
+    description: install npm packages
+    cmds:
+      - npm install
+    src:
+      - package.json
+      - package-lock.json
+    generates:
+      - node_modules

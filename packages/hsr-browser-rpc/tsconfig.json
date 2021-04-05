@@ -11,12 +11,12 @@
       "dom",
       "es6"
     ],
-    "rootDir": ".",
-    "baseUrl": ".",
+    "rootDir": "src",
+    "baseUrl": "src",
     "paths": {
-      "@no0dles/hsr-browser/*": ["../hsr-browser/*"]
+      "@no0dles/hsr-browser/*": ["../../hsr-browser/src/*"]
     },
-    "tsBuildInfoFile": "../../dist/hsr-browser-rpc.tsbuildinfo"
+    "tsBuildInfoFile": "../../dist/hsr-browser-rpc/tsbuildinfo"
   },
   "references": [
     {

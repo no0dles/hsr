@@ -10,12 +10,12 @@
     "lib": [
       "es6"
     ],
-    "rootDir": ".",
-    "baseUrl": ".",
+    "rootDir": "src",
+    "baseUrl": "src",
     "paths": {
-      "@no0dles/hsr-node/*": ["../hsr-node/*"]
+      "@no0dles/hsr-node/*": ["../../hsr-node/src/*"]
     },
-    "tsBuildInfoFile": "../../dist/hsr-node-typescript.tsbuildinfo"
+    "tsBuildInfoFile": "../../dist/hsr-node-typescript/tsbuildinfo"
   },
   "references": [
     {

@@ -1,6 +1,6 @@
 import { HttpRouter } from '../server/http-router'
-import { HttpClient } from '../../hsr-browser/http-client'
-import { HttpClientImpl } from '../../hsr-browser/http-client-impl'
+import { HttpClient } from '@no0dles/hsr-browser/http-client'
+import { HttpClientImpl } from '@no0dles/hsr-browser/http-client-impl'
 import { HttpRouterClientImpl } from '../server/http-router-client-impl'
 import { NodeHttpAdapter } from './http-node-adapter'
 import { HttpNodeClientResponse } from './http-node-client-response'

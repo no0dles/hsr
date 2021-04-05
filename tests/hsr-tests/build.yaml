@@ -1,0 +1,46 @@
+envs:
+  NODE_VERSION: 14.16.0
+
+tasks:
+  build:
+    description: build source code
+    deps: [ npm:install ]
+    generates:
+      - ../../dist/hsr-tests
+    src:
+      - src
+      - tsconfig.json
+      - package.json
+    cmds:
+      - node_modules/.bin/tsc -b
+
+  test:
+    description: jest tests
+    deps:
+      - npm:install
+      - hsr-node:npm:install
+      - hsr-node-rpc:npm:install
+      - hsr-node-static:npm:install
+      - hsr-node-typescript:npm:install
+      - hsr-browser:npm:install
+      - hsr-browser-rpc:npm:install
+    generates:
+      - ../../coverage/hsr-tests
+    src:
+      - src
+      - tsconfig.json
+      - package.json
+      - jest.config.ts
+    cmds:
+      - jest
+
+references:
+  hsr-node: ../../packages/hsr-node/build.yaml
+  hsr-node-rpc: ../../packages/hsr-node-rpc/build.yaml
+  hsr-node-static: ../../packages/hsr-node-static/build.yaml
+  hsr-node-typescript: ../../packages/hsr-node-typescript/build.yaml
+  hsr-browser: ../../packages/hsr-browser/build.yaml
+  hsr-browser-rpc: ../../packages/hsr-browser-rpc/build.yaml
+
+includes:
+  npm: ../../build.npm.yaml

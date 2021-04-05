@@ -23,7 +23,7 @@ httpApp.plugin(
 )
 httpApp.plugin(
   typescriptPlugin({
-    rootDir: join(__dirname, '../../../..'),
+    rootDir: join(__dirname, '../../../../..'),
     entryFiles: [join(__dirname, 'static/main.ts')],
   })
 )

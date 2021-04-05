@@ -11,11 +11,11 @@
       "es6"
     ],
     "paths": {
-      "@no0dles/hsr-browser/*": ["../hsr-browser/*"]
+      "@no0dles/hsr-browser/*": ["../../hsr-browser/src/*"]
     },
-    "rootDir": ".",
-    "baseUrl": ".",
-    "tsBuildInfoFile": "../../dist/hsr-node.tsbuildinfo"
+    "rootDir": "src",
+    "baseUrl": "src",
+    "tsBuildInfoFile": "../../dist/hsr-node/tsbuildinfo"
   },
   "references": [
     {

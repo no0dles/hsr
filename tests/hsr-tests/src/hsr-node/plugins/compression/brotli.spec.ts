@@ -46,7 +46,7 @@ describe('node/middlewares/brotli', () => {
       app.plugin(staticPlugin({ rootDir: __dirname }))
       app.plugin(
         typescriptPlugin({
-          rootDir: join(__dirname, '../../../../..'),
+          rootDir: join(__dirname, '../../../../../..'),
           entryFiles: [join(__dirname, 'brotli-main.ts')],
         })
       )

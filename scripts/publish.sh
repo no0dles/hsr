@@ -1,6 +1,0 @@
-(cd dist/hsr-browser; npm version $VERSION; npm publish)
-(cd dist/hsr-browser-rpc; npm version $VERSION; npm publish)
-(cd dist/hsr-node; npm version $VERSION; npm publish)
-(cd dist/hsr-node-rpc; npm version $VERSION; npm publish)
-(cd dist/hsr-node-static; npm version $VERSION; npm publish)
-(cd dist/hsr-node-typescript; npm version $VERSION; npm publish)

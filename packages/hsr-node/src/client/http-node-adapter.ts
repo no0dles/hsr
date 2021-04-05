@@ -1,11 +1,11 @@
-import { HttpMethod } from '../../hsr-browser/http-method'
+import { HttpMethod } from '@no0dles/hsr-browser/http-method'
 import { request as httpRequest } from 'http'
 import { request as httpsRequest } from 'https'
 import { HttpClientResponseImpl } from './http-client-response-impl'
 import { URL } from 'url'
 import { stringify } from 'querystring'
-import { HttpAdapter } from '../../hsr-browser/http-adapter'
-import { HttpClientConfig } from '../../hsr-browser/http-client-config'
+import { HttpAdapter } from '@no0dles/hsr-browser/http-adapter'
+import { HttpClientConfig } from '@no0dles/hsr-browser/http-client-config'
 import { HttpNodeClientResponse } from './http-node-client-response'
 
 export class NodeHttpAdapter implements HttpAdapter<HttpNodeClientResponse> {
