@@ -32,7 +32,7 @@ tasks:
       - package.json
       - jest.config.ts
     cmds:
-      - jest
+      - node_modules/.bin/jest
 
 references:
   hsr-node: ../../packages/hsr-node/build.yaml
