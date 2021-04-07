@@ -1,11 +1,11 @@
-name: build
+name: build & test
 on:
   push:
     branches:
 
 jobs:
   build:
-    name: Build hsr-browser
+    name: Build hsr
     runs-on: ubuntu-20.04
     timeout-minutes: 5
     steps:
@@ -16,7 +16,7 @@ jobs:
       - run: npx hammerkit build
 
   test:
-    name: Build hsr-browser
+    name: test hsr
     runs-on: ubuntu-20.04
     timeout-minutes: 5
     steps:

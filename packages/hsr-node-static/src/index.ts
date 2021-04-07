@@ -43,9 +43,8 @@ export function staticPlugin(options: HttpStaticRouterDirectoryOptions): HttpPlu
       if (entry.filename === 'index.html') {
         if (options.indexFallback) {
           router.wildcard().get(handler)
-        } else {
-          router.path(entry.paths.join('/')).get(handler)
         }
+        router.path(entry.paths.join('/')).get(handler)
       }
     }
     return router
