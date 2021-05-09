@@ -5,7 +5,7 @@
     "strict": true,
     "composite": true,
     "moduleResolution": "node",
-    "outDir": "../../dist/hsr-browser-rpc",
+    "outDir": "dist",
     "strictNullChecks": true,
     "lib": [
       "dom",
@@ -16,7 +16,7 @@
     "paths": {
       "@no0dles/hsr-browser/*": ["../../hsr-browser/src/*"]
     },
-    "tsBuildInfoFile": "../../dist/hsr-browser-rpc/tsbuildinfo"
+    "tsBuildInfoFile": "dist/tsbuildinfo"
   },
   "references": [
     {

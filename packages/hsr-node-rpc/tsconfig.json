@@ -5,7 +5,7 @@
     "strict": true,
     "composite": true,
     "declaration": true,
-    "outDir": "../../dist/hsr-node-rpc",
+    "outDir": "dist",
     "strictNullChecks": true,
     "lib": [
       "es6"
@@ -16,7 +16,7 @@
       "@no0dles/hsr-node/*": ["../../hsr-node/src/*"],
       "@no0dles/hsr-browser-rpc/*": ["../../hsr-browser-rpc/src/*"]
     },
-    "tsBuildInfoFile": "../../dist/hsr-node-rpc/tsbuildinfo"
+    "tsBuildInfoFile": "dist/tsbuildinfo"
   },
   "references": [
     {

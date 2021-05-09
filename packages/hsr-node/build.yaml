@@ -1,21 +1,7 @@
-envs:
-  NODE_VERSION: 14.16.0
-
 tasks:
   build:
-    description: build source code
-    deps: [ npm:install, hsr-browser:build ]
-    generates:
-      - ../../dist/hsr-node
-    mounts:
-      - node_modules
-    src:
-      - src
-      - package.json
-      - tsconfig.json
-    cmds:
-      - node_modules/.bin/tsc -b
-      - cp package.json ../../dist/hsr-node
+    extend: npm:build
+    deps: [ hsr-browser:build ]
 
 references:
   hsr-browser: ../hsr-browser/build.yaml

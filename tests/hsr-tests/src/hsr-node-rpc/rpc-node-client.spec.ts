@@ -10,7 +10,7 @@ describe('rpc', () => {
     const fooDecoder = type({
       value: string,
     })
-    const rpcApp = rpcServer().cmd('foo', fooDecoder, (req) => {
+    const rpcApp = rpcServer().cmd('foo', fooDecoder, async (req) => {
       return {
         message: 'foo' + req.value,
       }
@@ -20,9 +20,10 @@ describe('rpc', () => {
     const server = await listenHttp(app)
 
     const client = rpcNodeClient<typeof rpcApp>('http://localhost:' + (<any>server.address()).port)
-    const res = await client.call('foo', {
+    const resPromise = client.call('foo', {
       value: 'test',
     })
+    const res = await resPromise
     expect(res.message).toEqual('footest')
     server.close()
   })

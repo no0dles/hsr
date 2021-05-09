@@ -5,7 +5,7 @@
     "strict": true,
     "composite": true,
     "moduleResolution": "node",
-    "outDir": "../../dist/hsr-browser",
+    "outDir": "dist",
     "strictNullChecks": true,
     "lib": [
       "dom",
@@ -13,9 +13,10 @@
     ],
     "rootDir": "src",
     "baseUrl": "src",
-    "tsBuildInfoFile": "../../dist/hsr-browser/tsbuildinfo"
+    "tsBuildInfoFile": "dist/tsbuildinfo"
   },
   "exclude": [
-    "**/*.spec.ts"
+    "**/*.spec.ts",
+    "dist"
   ]
 }

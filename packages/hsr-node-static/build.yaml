@@ -3,21 +3,11 @@ envs:
 
 tasks:
   build:
-    description: build source code
-    deps: [npm:install, hsr-node:build, hsr-browser:build]
-    generates:
-      - ../../dist/hsr-node-static
-    src:
-      - src
-      - tsconfig.json
-      - package.json
-    cmds:
-    - node_modules/.bin/tsc -b
-    - cp package.json ../../dist/hsr-node-static
+    deps: [ hsr-node:build ]
+    extend: npm:build
 
 references:
   hsr-node: ../hsr-node/build.yaml
-  hsr-browser: ../hsr-browser/build.yaml
 
 includes:
   npm: ../../build.npm.yaml

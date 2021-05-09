@@ -5,7 +5,7 @@
     "strict": true,
     "composite": true,
     "declaration": true,
-    "outDir": "../../dist/hsr-node",
+    "outDir": "dist",
     "strictNullChecks": true,
     "lib": [
       "es6"
@@ -15,7 +15,7 @@
     },
     "rootDir": "src",
     "baseUrl": "src",
-    "tsBuildInfoFile": "../../dist/hsr-node/tsbuildinfo"
+    "tsBuildInfoFile": "dist/tsbuildinfo"
   },
   "references": [
     {
