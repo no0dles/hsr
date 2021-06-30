@@ -1,12 +1,17 @@
-envs:
-  NODE_VERSION: 14.16.0
-
 tasks:
   build:
     description: build source code
-    deps: [ npm:install ]
+    image: node:14.16.0
+    deps:
+    - npm:install
+    - hsr-node:build
+    - hsr-node-rpc:build
+    - hsr-node-static:build
+    - hsr-node-typescript:build
+    - hsr-browser:build
+    - hsr-browser-rpc:build
     generates:
-      - ../../dist/hsr-tests
+      - dist
     src:
       - src
       - tsconfig.json
@@ -16,6 +21,7 @@ tasks:
 
   test:
     description: jest tests
+    image: buildkite/puppeteer
     deps:
       - npm:install
       - hsr-node:npm:install

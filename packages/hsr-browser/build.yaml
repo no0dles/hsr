@@ -1,6 +1,5 @@
 tasks:
   build:
-    description: build
     extend: npm:build
 
 includes:

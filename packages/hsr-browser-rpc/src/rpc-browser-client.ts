@@ -10,7 +10,11 @@ export function rpcBrowserClient<T extends RpcServerInterface<any, any>>(url?: s
       arg: A
     ): Promise<T['_calls'][P]> {
       const result = await client.body(JSON.stringify(arg)).post(`/api/rpc/${name}`)
-      return result.bodyAsJson()
+      if (result.statusCode === 200) {
+        return result.bodyAsJson()
+      } else {
+        throw new Error(`rpc call ${name} failed`)
+      }
     },
   }
 }

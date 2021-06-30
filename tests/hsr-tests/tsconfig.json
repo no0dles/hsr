@@ -6,7 +6,7 @@
     "composite": true,
     "declaration": true,
     "moduleResolution": "node",
-    "outDir": "../../dist/hsr-tests",
+    "outDir": "dist",
     "lib": ["es6", "dom"],
     "strictNullChecks": true,
     "skipLibCheck": true,
@@ -22,7 +22,7 @@
       "@no0dles/hsr-browser/*": ["../../../packages/hsr-browser/src/*"],
       "@no0dles/hsr-browser-rpc/*": ["../../../packages/hsr-browser-rpc/src/*"]
     },
-    "tsBuildInfoFile": "../../dist/hsr-tests/tsbuildinfo"
+    "tsBuildInfoFile": "dist/tsbuildinfo"
   },
   "references": [
     {
