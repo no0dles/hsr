@@ -1,4 +1,14 @@
-# What is hsr?
+<h1 align="center">
+  <img src="docs/logo.png" alt="hsr" width="250">
+</h1>
+
+<p align='center'>
+  <img alt='build' src='https://img.shields.io/github/workflow/status/no0dles/hsr/build'>
+  <img alt='license' src='https://img.shields.io/github/license/no0dles/hsr'>
+</p>
+
+## About
+
 hsr stands for high-speed rail and should be faster, light and type friendly alternative to the famous express framework. hsr is written in typescript and uses the standard http / https module from the node ecosystem and fetch in the browser.
 
 [Documentation](https://app.gitbook.com/@no0dles/s/hsr/)
@@ -15,7 +25,7 @@ The following example is a http server that accepts a GET request for the route 
 ```typescript
 const app = router()
 app.path('api/todo').get(async (req, res) => {
-return res.statusCode(200).json({ message: 'hi' })
+  return res.statusCode(200).json({ message: 'hi' })
 })
 ```
 Every route in hsr gets the request and the response object as a function argument and requires the handling function to return the given response object back as a return value.
@@ -26,9 +36,9 @@ The following example is a http server that accepts a GET request for the route 
 ```typescript
 const app = router()
 app.path('api/todo').param('id').get(async (req, res, params) => {
-// params: { id: string }
-const id: string = params.id
-return res.statusCode(200).json({ id, title: 'foobar' })
+  // params: { id: string }
+  const id: string = params.id
+  return res.statusCode(200).json({ id, title: 'foobar' })
 })
 ```
 Every route in hsr has a third function argument that contains all path parameters. The type gets constructed based on the param function calls and in this case is equal to { id: string }
@@ -38,17 +48,17 @@ The following example is a http server that use a hsr middleware for basic authe
 ```typescript
 const app = router()
 app.use(basicAuthentication()).get((req, res) => {
-// req.auth: { username: string, password: string } | null
-const auth = req.auth;
-return res.statusCode(200);
+  // req.auth: { username: string, password: string } | null
+  const auth = req.auth;
+  return res.statusCode(200);
 })
 ```
 In the previous example, the basic authentication header was optional. If the server always wants to enforce the header value to be set, the middleware options has a required flag. In cases where the value is missing, the middleware ends the request early on and returns an empty response with a 401 status code. The route handler request type has also changed the auth property type to be always required (not null).
 ```typescript
 const app = router()
 app.use(basicAuthentication({ required: true })).get((req, res) => {
-// req.auth: { username: string, password: string }
-const auth = req.auth;
-return res.statusCode(200);
+  // req.auth: { username: string, password: string }
+  const auth = req.auth;
+  return res.statusCode(200);
 })
 ```
