@@ -8,7 +8,7 @@
   "license": "MIT",
   "type": "module",
   "exports": {
-    ".": "./rpc-browser-client.js"
+    "./rpc-browser-client": "./rpc-browser-client.js"
   },
   "scripts": {
     "build": "tsc -b"
