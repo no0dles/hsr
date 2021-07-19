@@ -8,7 +8,7 @@ tasks:
       - npm version $VERSION --allow-same-version
       - cp package.json dist/package.json
       - cd dist
-      - rm tsbuildinfo
+      - rm tsbuildinfo || true
       - npm publish
 
   install:
