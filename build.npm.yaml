@@ -6,6 +6,9 @@ tasks:
     #image: node:14.16.0
     cmds:
       - npm version $VERSION --allow-same-version
+      - cp package.json dist/package.json
+      - cd dist
+      - rm tsbuildinfo
       - npm publish
 
   install:
