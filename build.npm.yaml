@@ -7,9 +7,9 @@ tasks:
     cmds:
       - npm version $VERSION --allow-same-version
       - cp package.json dist/package.json
-      - cd dist
-      - rm tsbuildinfo || true
-      - npm publish
+      - rm dist/tsbuildinfo || true
+      - cmd: npm publish
+        path: dist
 
   install:
     description: install npm packages
