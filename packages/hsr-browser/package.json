@@ -11,7 +11,7 @@
   },
   "license": "MIT",
   "exports": {
-    ".": "./browser-client.js",
+    "./browser-client": "./browser-client.js",
     "./http-method": "./http-method.js",
     "./http-message": "./http-message.js"
   },
