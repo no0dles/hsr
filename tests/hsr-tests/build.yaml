@@ -23,13 +23,7 @@ tasks:
     description: jest tests
     image: buildkite/puppeteer
     deps:
-      - npm:install
-      - hsr-node:npm:install
-      - hsr-node-rpc:npm:install
-      - hsr-node-static:npm:install
-      - hsr-node-typescript:npm:install
-      - hsr-browser:npm:install
-      - hsr-browser-rpc:npm:install
+      - build
     generates:
       - ../../coverage/hsr-tests
     src:
@@ -38,6 +32,7 @@ tasks:
       - package.json
       - jest.config.ts
     cmds:
+      - ls -la
       - node_modules/.bin/jest
 
 references:
