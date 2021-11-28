@@ -10,11 +10,13 @@
     "build": "tsc -b"
   },
   "devDependencies": {
-    "@types/node": "^14.14.31",
-    "fp-ts": "^2.9.5",
+    "@types/node": "^16.11.10",
+    "fp-ts": "^2.11.5",
     "io-ts": "^2.2.16",
-    "typescript": "^4.2.3"
+    "typescript": "^4.5.2"
   },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": "./rpc-server.js",
     "./rpc-server": "./rpc-server.js",

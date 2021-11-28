@@ -11,7 +11,6 @@ tasks:
       - hsr-node-rpc:npm:publish
       - hsr-browser:npm:publish
       - hsr-node-static:npm:publish
-      - hsr-node-typescript:npm:publish
 
   build:
     description: build hsr
@@ -21,14 +20,12 @@ tasks:
       - hsr-node:build
       - hsr-node-rpc:build
       - hsr-node-static:build
-      - hsr-node-typescript:build
       - hsr-tests:build
 
 references:
   hsr-node: ./packages/hsr-node/build.yaml
   hsr-node-rpc: ./packages/hsr-node-rpc/build.yaml
   hsr-node-static: ./packages/hsr-node-static/build.yaml
-  hsr-node-typescript: ./packages/hsr-node-typescript/build.yaml
   hsr-browser: ./packages/hsr-browser/build.yaml
   hsr-browser-rpc: ./packages/hsr-browser-rpc/build.yaml
   hsr-tests: ./tests/hsr-tests/build.yaml

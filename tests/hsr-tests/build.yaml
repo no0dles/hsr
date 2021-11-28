@@ -7,7 +7,6 @@ tasks:
     - hsr-node:build
     - hsr-node-rpc:build
     - hsr-node-static:build
-    - hsr-node-typescript:build
     - hsr-browser:build
     - hsr-browser-rpc:build
     generates:
@@ -39,7 +38,6 @@ references:
   hsr-node: ../../packages/hsr-node/build.yaml
   hsr-node-rpc: ../../packages/hsr-node-rpc/build.yaml
   hsr-node-static: ../../packages/hsr-node-static/build.yaml
-  hsr-node-typescript: ../../packages/hsr-node-typescript/build.yaml
   hsr-browser: ../../packages/hsr-browser/build.yaml
   hsr-browser-rpc: ../../packages/hsr-browser-rpc/build.yaml
 

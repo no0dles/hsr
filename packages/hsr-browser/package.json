@@ -2,6 +2,8 @@
   "name": "@no0dles/hsr-browser",
   "version": "1.1.4",
   "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/no0dles/hsr"
@@ -16,6 +18,6 @@
     "./http-message": "./http-message.js"
   },
   "devDependencies": {
-    "typescript": "^4.2.3"
+    "typescript": "^4.5.2"
   }
 }

@@ -16,7 +16,7 @@
     "tsBuildInfoFile": "dist/tsbuildinfo"
   },
   "exclude": [
-    "**/*.spec.ts",
+    "node_modules",
     "dist"
   ]
 }

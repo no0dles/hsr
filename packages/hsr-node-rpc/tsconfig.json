@@ -8,7 +8,8 @@
     "outDir": "dist",
     "strictNullChecks": true,
     "lib": [
-      "es6"
+      "es6",
+      "ES2020"
     ],
     "rootDir": "src",
     "baseUrl": "src",
@@ -25,5 +26,9 @@
     {
       "path": "../hsr-browser-rpc/tsconfig.json"
     }
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
   ]
 }

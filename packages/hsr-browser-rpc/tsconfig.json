@@ -22,5 +22,9 @@
     {
       "path": "../hsr-browser/tsconfig.json"
     }
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
   ]
 }

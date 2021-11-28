@@ -1,30 +1,93 @@
 import { type, string } from 'io-ts'
-import { buildHttpPlugin } from '@no0dles/hsr-node-rpc/build-http-plugin'
+import { rpcServer } from '@no0dles/hsr-node-rpc/server'
 import { router } from '@no0dles/hsr-node/server/router'
-import { rpcNodeClient } from '@no0dles/hsr-node-rpc/rpc-node-client'
-import { rpcServer } from '@no0dles/hsr-node-rpc/rpc-server'
 import { listenHttp } from '@no0dles/hsr-node/server/server'
+import { rpcNodeClient } from '@no0dles/hsr-node-rpc/client'
+import { cmd } from '@no0dles/hsr-browser-rpc/cmd'
+import { buildHttpPlugin } from '@no0dles/hsr-node-rpc/build-http-plugin'
+import { ValidationError } from '@no0dles/hsr-browser-rpc/validation-error'
 
 describe('rpc', () => {
-  it('should', async () => {
-    const fooDecoder = type({
-      value: string,
-    })
-    const rpcApp = rpcServer().cmd('foo', fooDecoder, async (req) => {
-      return {
-        message: 'foo' + req.value,
-      }
-    })
-    const app = router()
-    app.plugin(buildHttpPlugin(rpcApp))
-    const server = await listenHttp(app)
+    it('should execute rpc', async () => {
+        const fooDecoder = type({
+            value: string,
+        })
+        const rpcApp = {
+            'foo': cmd(fooDecoder).as<{ message: string }>(),
+        }
+        const rpcServ = rpcServer(rpcApp, {
+            foo: async (req) => {
+                return {
+                    message: 'foo' + req.value,
+                }
+            },
+        })
 
-    const client = rpcNodeClient<typeof rpcApp>('http://localhost:' + (<any>server.address()).port)
-    const resPromise = client.call('foo', {
-      value: 'test',
+        const app = router()
+        app.plugin(buildHttpPlugin(rpcServ))
+        const server = await listenHttp(app)
+
+        const client = rpcNodeClient('http://localhost:' + (<any>server.address()).port, rpcApp)
+        const resPromise = client.foo.call({
+            value: 'test',
+        })
+        const res = await resPromise
+        expect(res.message).toEqual('footest')
+        server.close()
     })
-    const res = await resPromise
-    expect(res.message).toEqual('footest')
-    server.close()
-  })
+
+    it('should execute rpc without return value', async () => {
+        const fooDecoder = type({
+            value: string,
+        })
+        const rpcApp = {
+            'foo': cmd(fooDecoder),
+        }
+        const rpcServ = rpcServer(rpcApp, {
+            foo: async (req) => {
+                return
+            },
+        })
+
+        const app = router()
+        app.plugin(buildHttpPlugin(rpcServ))
+        const server = await listenHttp(app)
+
+        const client = rpcNodeClient('http://localhost:' + (<any>server.address()).port, rpcApp)
+        const resPromise = client.foo.call({
+            value: 'test',
+        })
+        const res = await resPromise
+        console.log(res)
+        server.close()
+    })
+
+    it('should execute throw validation error', async () => {
+        const fooDecoder = type({
+            value: string,
+        })
+        const rpcApp = {
+            'foo': cmd(fooDecoder).as<{ message: string }>(),
+        }
+        const rpcServ = rpcServer(rpcApp, {
+            foo: async (req) => {
+                return {
+                    message: 'foo' + req.value,
+                }
+            },
+        })
+
+        const app = router()
+        app.plugin(buildHttpPlugin(rpcServ))
+        const server = await listenHttp(app)
+
+        const client = rpcNodeClient('http://localhost:' + (<any>server.address()).port, rpcApp)
+        try {
+            await client.foo.call({} as any)
+            expect(false).toBeTruthy();
+        } catch (e) {
+            expect(e).toBeInstanceOf(ValidationError);
+        }
+        server.close()
+    })
 })

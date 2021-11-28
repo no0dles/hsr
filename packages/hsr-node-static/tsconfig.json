@@ -21,5 +21,9 @@
     {
       "path": "../hsr-node/tsconfig.json"
     }
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
   ]
 }

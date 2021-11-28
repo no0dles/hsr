@@ -17,7 +17,6 @@
     "paths": {
       "@no0dles/hsr-node/*": ["../../../packages/hsr-node/src/*"],
       "@no0dles/hsr-node-rpc/*": ["../../../packages/hsr-node-rpc/src/*"],
-      "@no0dles/hsr-node-typescript/*": ["../../../packages/hsr-node-typescript/src/*"],
       "@no0dles/hsr-node-static/*": ["../../../packages/hsr-node-static/src/*"],
       "@no0dles/hsr-browser/*": ["../../../packages/hsr-browser/src/*"],
       "@no0dles/hsr-browser-rpc/*": ["../../../packages/hsr-browser-rpc/src/*"]
@@ -38,14 +37,12 @@
       "path": "../../packages/hsr-node-rpc/tsconfig.json"
     },
     {
-      "path": "../../packages/hsr-node-typescript/tsconfig.json"
-    },
-    {
       "path": "../../packages/hsr-node-static/tsconfig.json"
     }
   ],
   "exclude": [
     "node_modules",
-    "jest.config.ts"
+    "jest.config.ts",
+    "dist"
   ]
 }

@@ -1,10 +1,8 @@
-import { join } from 'path'
 import puppeteer from 'puppeteer'
 import { HTTPResponse } from 'puppeteer'
 import { nodeClient } from '@no0dles/hsr-node/client/node-client'
 import { router } from '@no0dles/hsr-node/server/router'
 import { staticPlugin } from '@no0dles/hsr-node-static/index'
-import { typescriptPlugin } from '@no0dles/hsr-node-typescript/typescript-plugin'
 import { brotli, nodeBrotliClient } from '@no0dles/hsr-node/middlewares/compression/brotli'
 import { listenHttp } from '@no0dles/hsr-node/server/server'
 
@@ -44,12 +42,6 @@ describe('node/middlewares/brotli', () => {
         return res.json({ message: 'foo bar bar' })
       })
       app.plugin(staticPlugin({ rootDir: __dirname }))
-      app.plugin(
-        typescriptPlugin({
-          rootDir: join(__dirname, '../../../../../..'),
-          entryFiles: [join(__dirname, 'brotli-main.ts')],
-        })
-      )
 
       const server = await listenHttp(app)
       try {
@@ -64,7 +56,7 @@ describe('node/middlewares/brotli', () => {
           return res.url().endsWith('/api/test')
         })
         expect(response.headers()['content-encoding']).toEqual('br')
-        const result = await page.evaluate(() => (<any>window).result.then((r: any) => r.bodyAsJson()))
+        const result = await page.evaluate(() => (<any>window).result)
         expect(result).toEqual({ message: 'foo bar bar' })
       } finally {
         server.close()
