@@ -12,11 +12,55 @@ jobs:
           node-version: '16.x'
           registry-url: 'https://npm.pkg.github.com'
           scope: '@no0dles'
-      - run: npx hammerkit build
+      - run: npm ci
+      - run: npm ci
+        working-directory: packages/hsr-browser
+      - run: npm ci
+        working-directory: packages/hsr-browser-rpc
+      - run: npm ci
+        working-directory: packages/hsr-node
+      - run: npm ci
+        working-directory: packages/hsr-node-rpc
+      - run: npm ci
+        working-directory: packages/hsr-node-static
+      - run: npm ci
+        working-directory: tests/hsr-tests
+      - run: npm run build
       - name: Get the version
         id: get_version
         run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
-      - run: npx hammerkit publish
+      - run: npm version $VERSION --allow-same-version
+        working-directory: packages/hsr-browser
+      - run: npm version $VERSION --allow-same-version
+        working-directory: packages/hsr-browser-rpc
+      - run: npm version $VERSION --allow-same-version
+        working-directory: packages/hsr-node
+      - run: npm version $VERSION --allow-same-version
+        working-directory: packages/hsr-node-rpc
+      - run: npm version $VERSION --allow-same-version
+        working-directory: packages/hsr-node-static
+      - run: npm publish
+        working-directory: packages/hsr-browser
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.get_version.outputs.VERSION }}
+      - run: npm publish
+        working-directory: packages/hsr-browser-rpc
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.get_version.outputs.VERSION }}
+      - run: npm publish
+        working-directory: packages/hsr-node
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.get_version.outputs.VERSION }}
+      - run: npm publish
+        working-directory: packages/hsr-node-rpc
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.get_version.outputs.VERSION }}
+      - run: npm publish
+        working-directory: packages/hsr-node-static
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VERSION: ${{ steps.get_version.outputs.VERSION }}

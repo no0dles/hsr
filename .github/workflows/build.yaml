@@ -13,7 +13,20 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 16.x
-      - run: npx hammerkit build
+      - run: npm ci
+      - run: npm ci
+        working-directory: packages/hsr-browser
+      - run: npm ci
+        working-directory: packages/hsr-browser-rpc
+      - run: npm ci
+        working-directory: packages/hsr-node
+      - run: npm ci
+        working-directory: packages/hsr-node-rpc
+      - run: npm ci
+        working-directory: packages/hsr-node-static
+      - run: npm ci
+        working-directory: tests/hsr-tests
+      - run: npm run build
 
   test:
     name: test hsr
@@ -24,5 +37,20 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 16.x
-      - run: npx hammerkit test
+      - run: npm ci
+      - run: npm ci
+        working-directory: packages/hsr-browser
+      - run: npm ci
+        working-directory: packages/hsr-browser-rpc
+      - run: npm ci
+        working-directory: packages/hsr-node
+      - run: npm ci
+        working-directory: packages/hsr-node-rpc
+      - run: npm ci
+        working-directory: packages/hsr-node-static
+      - run: npm ci
+        working-directory: tests/hsr-tests
+      - run: npm run build
+      - run: npm test
+        working-directory: tests/hsr-tests
 
