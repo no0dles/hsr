@@ -64,7 +64,7 @@ jobs:
       - run: npm publish
         working-directory: packages/hsr-node-rpc
         env:
-          VERSION: ${{ steps.get_version.outputs.VERSION }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: npm publish
         working-directory: packages/hsr-node-static
         env:
