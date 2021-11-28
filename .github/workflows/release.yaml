@@ -31,36 +31,41 @@ jobs:
         run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
       - run: npm version $VERSION --allow-same-version
         working-directory: packages/hsr-browser
+        env:
+          VERSION: ${{ steps.get_version.outputs.VERSION }}
       - run: npm version $VERSION --allow-same-version
         working-directory: packages/hsr-browser-rpc
+        env:
+          VERSION: ${{ steps.get_version.outputs.VERSION }}
       - run: npm version $VERSION --allow-same-version
         working-directory: packages/hsr-node
+        env:
+          VERSION: ${{ steps.get_version.outputs.VERSION }}
       - run: npm version $VERSION --allow-same-version
         working-directory: packages/hsr-node-rpc
+        env:
+          VERSION: ${{ steps.get_version.outputs.VERSION }}
       - run: npm version $VERSION --allow-same-version
         working-directory: packages/hsr-node-static
+        env:
+          VERSION: ${{ steps.get_version.outputs.VERSION }}
       - run: npm publish
         working-directory: packages/hsr-browser
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VERSION: ${{ steps.get_version.outputs.VERSION }}
       - run: npm publish
         working-directory: packages/hsr-browser-rpc
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VERSION: ${{ steps.get_version.outputs.VERSION }}
       - run: npm publish
         working-directory: packages/hsr-node
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VERSION: ${{ steps.get_version.outputs.VERSION }}
       - run: npm publish
         working-directory: packages/hsr-node-rpc
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VERSION: ${{ steps.get_version.outputs.VERSION }}
       - run: npm publish
         working-directory: packages/hsr-node-static
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VERSION: ${{ steps.get_version.outputs.VERSION }}
