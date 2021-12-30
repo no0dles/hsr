@@ -23,10 +23,10 @@
       "require": "./dist/browser-client.js",
       "types": "./dist/browser-client.d.ts"
     },
-    "./browser-client-impl": {
-      "import": "./dist/browser-client-impl.js",
-      "require": "./dist/browser-client-impl.js",
-      "types": "./dist/browser-client-impl.d.ts"
+    "./http-client-impl": {
+      "import": "./dist/http-client-impl.js",
+      "require": "./dist/http-client-impl.js",
+      "types": "./dist/http-client-impl.d.ts"
     },
     "./http-method": {
       "import": "./dist/http-method.js",
