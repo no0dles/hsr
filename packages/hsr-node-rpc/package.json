@@ -19,18 +19,22 @@
   "exports": {
     ".": {
       "import": "./dist/index.js",
+      "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
     "./rpc-server": {
       "import": "./dist/rpc-server.js",
+      "require": "./dist/rpc-server.js",
       "types": "./dist/rpc-server.d.ts"
     },
     "./rpc-node-client": {
       "import": "./dist/rpc-node-client.js",
+      "require": "./dist/rpc-node-client.js",
       "types": "./dist/rpc-node-client.d.ts"
     },
     "./build-http-plugin": {
       "import": "./dist/build-http-plugin.js",
+      "require": "./dist/build-http-plugin.js",
       "types": "./dist/build-http-plugin.d.ts"
     }
   },

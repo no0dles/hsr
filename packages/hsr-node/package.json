@@ -14,38 +14,47 @@
   "exports": {
     ".": {
       "import": "./dist/index.js",
+      "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
     "./client/node-client": {
       "import": "./dist/client/node-client.js",
+      "require": "./dist/client/node-client.js",
       "types": "./dist/client/node-client.d.ts"
     },
     "./server/router": {
       "import": "./dist/server/router.js",
+      "require": "./dist/server/router.js",
       "types": "./dist/server/router.d.ts"
     },
     "./server/server": {
       "import": "./dist/server/server.js",
+      "require": "./dist/server/server.js",
       "types": "./dist/server/server.d.ts"
     },
     "./middlewares/basic-authentication/bearer-authentication": {
       "import": "./dist/middlewares/basic-authentication/basic-authentication.js",
+      "require": "./dist/middlewares/basic-authentication/basic-authentication.js",
       "types": "./dist/middlewares/basic-authentication/basic-authentication.d.ts"
     },
     "./middlewares/bearer-authentication/bearer-authentication": {
       "import": "./dist/middlewares/bearer-authentication/bearer-authentication.js",
+      "require": "./dist/middlewares/bearer-authentication/bearer-authentication.js",
       "types": "./dist/middlewares/bearer-authentication/bearer-authentication.d.ts"
     },
     "./middlewares/constant/constant": {
       "import": "./dist/middlewares/constant/constant.js",
+      "require": "./dist/middlewares/constant/constant.js",
       "types": "./dist/middlewares/constant/constant.d.ts"
     },
     "./middlewares/cors/cors": {
       "import": "./dist/middlewares/cors/cors.js",
+      "require": "./dist/middlewares/cors/cors.js",
       "types": "./dist/middlewares/cors/cors.d.ts"
     },
     "./middlewares/logger/logger": {
       "import": "./dist/middlewares/logger/logger.js",
+      "require": "./dist/middlewares/logger/logger.js",
       "types": "./dist/middlewares/logger/logger.d.ts"
     }
   },

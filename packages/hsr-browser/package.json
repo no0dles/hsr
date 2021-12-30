@@ -15,18 +15,22 @@
   "exports": {
     ".": {
       "import": "./dist/index.js",
+      "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
     "./browser-client": {
       "import": "./dist/browser-client.js",
+      "require": "./dist/browser-client.js",
       "types": "./dist/browser-client.d.ts"
     },
     "./http-method": {
       "import": "./dist/http-method.js",
+      "require": "./dist/http-method.js",
       "types": "./dist/http-method.d.ts"
     },
     "./http-message": {
       "import": "./dist/http-message.js",
+      "require": "./dist/http-message.js",
       "types": "./dist/http-message.d.ts"
     }
   }

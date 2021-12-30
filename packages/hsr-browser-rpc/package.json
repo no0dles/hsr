@@ -12,18 +12,22 @@
   "exports": {
     ".": {
       "import": "./dist/index.js",
+      "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
     "./client": {
       "import": "./dist/client.js",
+      "require": "./dist/client.js",
       "types": "./dist/client.d.ts"
     },
     "./cmd": {
       "import": "./dist/cmd.js",
+      "require": "./dist/cmd.js",
       "types": "./dist/cmd.d.ts"
     },
     "./validation-error": {
       "import": "./dist/validation-error.js",
+      "require": "./dist/validation-error.js",
       "types": "./dist/validation-error.d.ts"
     }
   },
