@@ -12,16 +12,27 @@
   "devDependencies": {
     "@types/node": "^16.11.10",
     "fp-ts": "^2.11.5",
-    "io-ts": "^2.2.16",
-    "typescript": "^4.5.2"
+    "io-ts": "^2.2.16"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
-    ".": "./rpc-server.js",
-    "./rpc-server": "./rpc-server.js",
-    "./rpc-node-client": "./rpc-node-client.js",
-    "./build-http-plugin": "./build-http-plugin.js"
+    ".": {
+      "import": "./dist/rpc-server.js",
+      "types": "./dist/rpc-server.d.ts"
+    },
+    "./rpc-server": {
+      "import": "./dist/rpc-server.js",
+      "types": "./dist/rpc-server.d.ts"
+    },
+    "./rpc-node-client": {
+      "import": "./dist/rpc-node-client.js",
+      "types": "./dist/rpc-node-client.d.ts"
+    },
+    "./build-http-plugin": {
+      "import": "./dist/build-http-plugin.js",
+      "types": "./dist/build-http-plugin.d.ts"
+    }
   },
   "peerDependencies": {
     "fp-ts": ">= 2.9.5",

@@ -2,8 +2,6 @@
   "name": "@no0dles/hsr-browser",
   "version": "1.1.4",
   "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/no0dles/hsr"
@@ -12,12 +10,20 @@
     "build": "tsc -b"
   },
   "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "exports": {
-    ".": "./browser-client.js",
-    "./http-method": "./http-method.js",
-    "./http-message": "./http-message.js"
-  },
-  "devDependencies": {
-    "typescript": "^4.5.2"
+    ".": {
+      "import": "./dist/browser-client.js",
+      "types": "./dist/browser-client.d.ts"
+    },
+    "./http-method": {
+      "import": "./dist/http-method.js",
+      "types": "./dist/http-method.d.ts"
+    },
+    "./http-message": {
+      "import": "./dist/http-message.js",
+      "types": "./dist/http-message.d.ts"
+    }
   }
 }

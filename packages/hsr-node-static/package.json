@@ -11,13 +11,15 @@
   },
   "devDependencies": {
     "@types/mime-db": "^1.43.1",
-    "@types/node": "^16.11.10",
-    "typescript": "^4.5.2"
+    "@types/node": "^16.11.10"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
-    ".": "./index.js"
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
   },
   "dependencies": {
     "mime-db": "^1.51.0"

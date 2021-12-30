@@ -9,18 +9,43 @@
   "scripts": {
     "build": "tsc -b"
   },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "exports": {
-    "./client/node-client": "./client/node-client.js",
-    "./server/router": "./server/router.js",
-    "./server/server": "./server/server.js",
-    "./middlewares/basic-authentication/bearer-authentication": "./middlewares/basic-authentication/basic-authentication.js",
-    "./middlewares/bearer-authentication/bearer-authentication": "./middlewares/bearer-authentication/bearer-authentication.js",
-    "./middlewares/constant/constant": "./middlewares/constant/constant.js",
-    "./middlewares/cors/cors": "./middlewares/cors/cors.js",
-    "./middlewares/logger/logger": "./middlewares/logger/logger.js"
+    "./client/node-client": {
+      "import": "./dist/client/node-client.js",
+      "types": "./dist/client/node-client.d.ts"
+    },
+    "./server/router": {
+      "import": "./dist/server/router.js",
+      "types": "./dist/server/router.d.ts"
+    },
+    "./server/server": {
+      "import": "./dist/server/server.js",
+      "types": "./dist/server/server.d.ts"
+    },
+    "./middlewares/basic-authentication/bearer-authentication": {
+      "import": "./dist/middlewares/basic-authentication/basic-authentication.js",
+      "types": "./dist/middlewares/basic-authentication/basic-authentication.d.ts"
+    },
+    "./middlewares/bearer-authentication/bearer-authentication": {
+      "import": "./dist/middlewares/bearer-authentication/bearer-authentication.js",
+      "types": "./dist/middlewares/bearer-authentication/bearer-authentication.d.ts"
+    },
+    "./middlewares/constant/constant": {
+      "import": "./dist/middlewares/constant/constant.js",
+      "types": "./dist/middlewares/constant/constant.d.ts"
+    },
+    "./middlewares/cors/cors": {
+      "import": "./dist/middlewares/cors/cors.js",
+      "types": "./dist/middlewares/cors/cors.d.ts"
+    },
+    "./middlewares/logger/logger": {
+      "import": "./dist/middlewares/logger/logger.js",
+      "types": "./dist/middlewares/logger/logger.d.ts"
+    }
   },
   "devDependencies": {
-    "@types/node": "^16.11.10",
-    "typescript": "^4.5.2"
+    "@types/node": "^16.11.10"
   }
 }

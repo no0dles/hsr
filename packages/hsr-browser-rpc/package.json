@@ -4,21 +4,29 @@
     "type": "git",
     "url": "https://github.com/no0dles/hsr"
   },
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
   "version": "0.0.0",
   "license": "MIT",
   "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "exports": {
-    ".": "./client.js",
-    "./cmd": "./cmd.js",
-    "./validation-error": "./validation-error.js"
+    ".": {
+      "import": "./dist/client.js",
+      "types": "./dist/client.d.ts"
+    },
+    "./cmd": {
+      "import": "./dist/cmd.js",
+      "types": "./dist/cmd.d.ts"
+    },
+    "./validation-error": {
+      "import": "./dist/validation-error.js",
+      "types": "./dist/validation-error.d.ts"
+    }
   },
   "scripts": {
     "build": "tsc -b"
   },
   "devDependencies": {
-    "typescript": "^4.5.2",
     "io-ts": "^2.2.16"
   }
 }
