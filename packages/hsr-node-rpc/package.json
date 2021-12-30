@@ -7,35 +7,37 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "build": "tsc -b"
+    "build": "npm run build:cjs && npm run build:esm",
+    "build:esm": "tsc --module es2015 --target es2015 --outDir dist/cjs",
+    "build:cjs": "tsc --module commonjs --target es2015 --outDir dist/esm"
   },
   "devDependencies": {
     "@types/node": "^16.11.10",
     "fp-ts": "^2.11.5",
     "io-ts": "^2.2.16"
   },
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/cjs/index.js",
+  "types": "dist/cjs/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "types": "./dist/esm/index.d.ts"
     },
     "./rpc-server": {
-      "import": "./dist/rpc-server.js",
-      "require": "./dist/rpc-server.js",
-      "types": "./dist/rpc-server.d.ts"
+      "import": "./dist/esm/rpc-server.js",
+      "require": "./dist/cjs/rpc-server.js",
+      "types": "./dist/esm/rpc-server.d.ts"
     },
     "./rpc-node-client": {
-      "import": "./dist/rpc-node-client.js",
-      "require": "./dist/rpc-node-client.js",
-      "types": "./dist/rpc-node-client.d.ts"
+      "import": "./dist/esm/rpc-node-client.js",
+      "require": "./dist/cjs/rpc-node-client.js",
+      "types": "./dist/esm/rpc-node-client.d.ts"
     },
     "./build-http-plugin": {
-      "import": "./dist/build-http-plugin.js",
-      "require": "./dist/build-http-plugin.js",
-      "types": "./dist/build-http-plugin.d.ts"
+      "import": "./dist/esm/build-http-plugin.js",
+      "require": "./dist/cjs/build-http-plugin.js",
+      "types": "./dist/esm/build-http-plugin.d.ts"
     }
   },
   "peerDependencies": {

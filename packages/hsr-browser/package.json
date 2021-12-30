@@ -7,36 +7,38 @@
     "url": "https://github.com/no0dles/hsr"
   },
   "scripts": {
-    "build": "tsc -b"
+    "build": "npm run build:cjs && npm run build:esm",
+    "build:esm": "tsc --module es2015 --target es2015 --outDir dist/cjs",
+    "build:cjs": "tsc --module commonjs --target es2015 --outDir dist/esm"
   },
   "license": "MIT",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/cjs/index.js",
+  "types": "dist/cjs/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "import": "./dist/esm/index.js",
+      "default": "./dist/cjs/index.js",
+      "types": "./dist/esm/index.d.ts"
     },
     "./browser-client": {
-      "import": "./dist/browser-client.js",
-      "require": "./dist/browser-client.js",
-      "types": "./dist/browser-client.d.ts"
+      "import": "./dist/esm/browser-client.js",
+      "require": "./dist/cjs/browser-client.js",
+      "types": "./dist/esm/browser-client.d.ts"
     },
     "./http-client-impl": {
-      "import": "./dist/http-client-impl.js",
-      "require": "./dist/http-client-impl.js",
-      "types": "./dist/http-client-impl.d.ts"
+      "import": "./dist/esm/http-client-impl.js",
+      "require": "./dist/cjs/http-client-impl.js",
+      "types": "./dist/esm/http-client-impl.d.ts"
     },
     "./http-method": {
-      "import": "./dist/http-method.js",
-      "require": "./dist/http-method.js",
-      "types": "./dist/http-method.d.ts"
+      "import": "./dist/esm/http-method.js",
+      "require": "./dist/cjs/http-method.js",
+      "types": "./dist/esm/http-method.d.ts"
     },
     "./http-message": {
-      "import": "./dist/http-message.js",
-      "require": "./dist/http-message.js",
-      "types": "./dist/http-message.d.ts"
+      "import": "./dist/esm/http-message.js",
+      "require": "./dist/cjs/http-message.js",
+      "types": "./dist/esm/http-message.d.ts"
     }
   }
 }

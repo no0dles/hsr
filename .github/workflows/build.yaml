@@ -51,6 +51,14 @@ jobs:
       - run: npm ci
         working-directory: tests/hsr-tests
       - run: npm run build
+        working-directory: packages/hsr-browser
+      - run: npm run build
+        working-directory: packages/hsr-browser-rpc
+      - run: npm run build
+        working-directory: packages/hsr-node
+      - run: npm run build
+        working-directory: packages/hsr-node-rpc
+      - run: npm run build
       - run: npm test
         working-directory: tests/hsr-tests
 

@@ -7,32 +7,34 @@
   "version": "0.0.0",
   "license": "MIT",
   "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/cjs/index.js",
+  "types": "dist/cjs/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "types": "./dist/esm/index.d.ts"
     },
     "./client": {
-      "import": "./dist/client.js",
-      "require": "./dist/client.js",
-      "types": "./dist/client.d.ts"
+      "import": "./dist/esm/client.js",
+      "require": "./dist/cjs/client.js",
+      "types": "./dist/esm/client.d.ts"
     },
     "./cmd": {
-      "import": "./dist/cmd.js",
-      "require": "./dist/cmd.js",
-      "types": "./dist/cmd.d.ts"
+      "import": "./dist/esm/cmd.js",
+      "require": "./dist/cjs/cmd.js",
+      "types": "./dist/esm/cmd.d.ts"
     },
     "./validation-error": {
-      "import": "./dist/validation-error.js",
-      "require": "./dist/validation-error.js",
-      "types": "./dist/validation-error.d.ts"
+      "import": "./dist/esm/validation-error.js",
+      "require": "./dist/cjs/validation-error.js",
+      "types": "./dist/esm/validation-error.d.ts"
     }
   },
   "scripts": {
-    "build": "tsc -b"
+    "build": "npm run build:cjs && npm run build:esm",
+    "build:esm": "tsc --module es2015 --target es2015 --outDir dist/cjs",
+    "build:cjs": "tsc --module commonjs --target es2015 --outDir dist/esm"
   },
   "devDependencies": {
     "io-ts": "^2.2.16"

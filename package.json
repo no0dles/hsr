@@ -5,9 +5,6 @@
     "type": "git",
     "url": "https://github.com/no0dles/hsr"
   },
-  "scripts": {
-    "build": "tsc -b"
-  },
   "version": "0.0.0",
   "license": "MIT",
   "devDependencies": {

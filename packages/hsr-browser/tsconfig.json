@@ -5,7 +5,7 @@
     "strict": true,
     "composite": true,
     "moduleResolution": "node",
-    "outDir": "dist",
+    "outDir": "dist/esm",
     "strictNullChecks": true,
     "lib": [
       "dom",

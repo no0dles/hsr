@@ -5,8 +5,9 @@
     "strict": true,
     "composite": true,
     "declaration": true,
-    "outDir": "dist",
+    "outDir": "dist/esm",
     "strictNullChecks": true,
+    "moduleResolution": "node",
     "lib": [
       "es6"
     ],

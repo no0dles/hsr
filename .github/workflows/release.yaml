@@ -26,6 +26,15 @@ jobs:
       - run: npm ci
         working-directory: tests/hsr-tests
       - run: npm run build
+        working-directory: packages/hsr-browser
+      - run: npm run build
+        working-directory: packages/hsr-browser-rpc
+      - run: npm run build
+        working-directory: packages/hsr-node
+      - run: npm run build
+        working-directory: packages/hsr-node-rpc
+      - run: npm run build
+        working-directory: packages/hsr-node-static
       - name: Get the version
         id: get_version
         run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
