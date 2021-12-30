@@ -20,6 +20,7 @@ describe('plugins/static', () => {
     expect(res.statusCode).toEqual(200)
     expect(await res.bodyAsString()).toEqual(indexFile)
     expect(await res.header('content-type')).toEqual('text/html')
+    expect(await res.header('content-length')).toEqual('173')
     await cli.close()
   })
 
