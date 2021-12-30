@@ -18,8 +18,8 @@
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/rpc-server.js",
-      "types": "./dist/rpc-server.d.ts"
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
     },
     "./rpc-server": {
       "import": "./dist/rpc-server.js",
