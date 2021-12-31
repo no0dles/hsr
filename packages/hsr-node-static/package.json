@@ -4,7 +4,7 @@
     "type": "git",
     "url": "https://github.com/no0dles/hsr"
   },
-  "version": "1.2.12",
+  "version": "1.2.13",
   "license": "MIT",
   "scripts": {
     "build": "npm run build:cjs && npm run build:esm",
@@ -25,7 +25,7 @@
     }
   },
   "dependencies": {
-    "@no0dles/hsr-node": "^1.2.12",
+    "@no0dles/hsr-node": "^1.2.13",
     "mime-db": "^1.51.0"
   }
 }
