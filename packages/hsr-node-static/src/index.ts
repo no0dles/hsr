@@ -1,10 +1,10 @@
 import {createReadStream, readdirSync, stat} from 'fs';
 import {join, extname} from 'path';
 import * as db from 'mime-db';
-import {HttpRequest} from '@no0dles/hsr-node/server/http-request';
-import {HttpHandler} from '@no0dles/hsr-node/server/http-handler';
-import {HttpPlugin} from '@no0dles/hsr-node/server/http-plugin';
-import {HttpResponse} from '@no0dles/hsr-node/server/http-response';
+import {HttpRequest} from '@no0dles/hsr-node';
+import {HttpHandler} from '@no0dles/hsr-node';
+import {HttpPlugin} from '@no0dles/hsr-node';
+import {HttpResponse} from '@no0dles/hsr-node';
 
 export interface HttpStaticRouterDirectoryOptions {
   rootDir: string;

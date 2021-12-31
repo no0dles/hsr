@@ -3,8 +3,8 @@ import { HttpRequest } from '../../server/http-request'
 import { HttpMiddleware } from '../../server/http-middleware'
 import { HttpResponse } from '../../server/http-response'
 import { readableToBuffer } from '../../server/http-request-impl'
-import { HttpClientMiddleware } from '@no0dles/hsr-browser/http-client-middleware'
-import { HttpClient } from '@no0dles/hsr-browser/http-client'
+import { HttpClientMiddleware } from '@no0dles/hsr-browser'
+import { HttpClient } from '@no0dles/hsr-browser'
 import { HttpNodeClientResponse } from '../../client/http-node-client-response'
 
 export function nodeBrotliClient(): HttpClientMiddleware<HttpNodeClientResponse, {}> {

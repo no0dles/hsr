@@ -1,5 +1,5 @@
-import { HttpMethod } from '@no0dles/hsr-browser/http-method'
-import { HttpMessage } from '@no0dles/hsr-browser/http-message'
+import { HttpMethod } from '@no0dles/hsr-browser'
+import { HttpMessage } from '@no0dles/hsr-browser'
 
 export interface HttpRequest extends HttpMessage {
   method: HttpMethod

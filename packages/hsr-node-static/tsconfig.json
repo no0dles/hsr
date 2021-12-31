@@ -13,9 +13,6 @@
     ],
     "rootDir": "src",
     "baseUrl": "src",
-    "paths": {
-      "@no0dles/hsr-node/*": ["../../hsr-node/src/*"]
-    },
     "tsBuildInfoFile": "dist/tsbuildinfo"
   },
   "references": [

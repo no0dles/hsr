@@ -13,28 +13,8 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
           scope: '@no0dles'
       - run: npm ci
-      - run: npm ci
-        working-directory: packages/hsr-browser
-      - run: npm ci
-        working-directory: packages/hsr-browser-rpc
-      - run: npm ci
-        working-directory: packages/hsr-node
-      - run: npm ci
-        working-directory: packages/hsr-node-rpc
-      - run: npm ci
-        working-directory: packages/hsr-node-static
-      - run: npm ci
-        working-directory: tests/hsr-tests
-      - run: npm run build
-        working-directory: packages/hsr-browser
-      - run: npm run build
-        working-directory: packages/hsr-browser-rpc
-      - run: npm run build
-        working-directory: packages/hsr-node
-      - run: npm run build
-        working-directory: packages/hsr-node-rpc
-      - run: npm run build
-        working-directory: packages/hsr-node-static
+      - run: lerna bootstrap
+      - run: lerna run build
       - name: Get the version
         id: get_version
         run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}

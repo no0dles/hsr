@@ -14,19 +14,8 @@ jobs:
         with:
           node-version: 16.x
       - run: npm ci
-      - run: npm ci
-        working-directory: packages/hsr-browser
-      - run: npm ci
-        working-directory: packages/hsr-browser-rpc
-      - run: npm ci
-        working-directory: packages/hsr-node
-      - run: npm ci
-        working-directory: packages/hsr-node-rpc
-      - run: npm ci
-        working-directory: packages/hsr-node-static
-      - run: npm ci
-        working-directory: tests/hsr-tests
-      - run: npm run build
+      - run: lerna bootstrap
+      - run: lerna run build
 
   test:
     name: test hsr
@@ -38,27 +27,8 @@ jobs:
         with:
           node-version: 16.x
       - run: npm ci
-      - run: npm ci
-        working-directory: packages/hsr-browser
-      - run: npm ci
-        working-directory: packages/hsr-browser-rpc
-      - run: npm ci
-        working-directory: packages/hsr-node
-      - run: npm ci
-        working-directory: packages/hsr-node-rpc
-      - run: npm ci
-        working-directory: packages/hsr-node-static
-      - run: npm ci
-        working-directory: tests/hsr-tests
-      - run: npm run build
-        working-directory: packages/hsr-browser
-      - run: npm run build
-        working-directory: packages/hsr-browser-rpc
-      - run: npm run build
-        working-directory: packages/hsr-node
-      - run: npm run build
-        working-directory: packages/hsr-node-rpc
-      - run: npm run build
+      - run: lerna bootstrap
+      - run: lerna run build
       - run: npm test
         working-directory: tests/hsr-tests
 

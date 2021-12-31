@@ -1,4 +1,4 @@
 dist/tsbuildinfo
 src
 build.yaml
-tsconfig.json
+tsconfig.jsonr

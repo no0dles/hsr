@@ -1,7 +1,7 @@
-import { nodeClient } from '@no0dles/hsr-node/client/node-client'
-import { RpcClientApp } from '@no0dles/hsr-browser-rpc/app'
-import { RpcClientFunction } from '@no0dles/hsr-browser-rpc/function'
-import { ValidationError } from '@no0dles/hsr-browser-rpc/validation-error'
+import { nodeClient } from '@no0dles/hsr-node'
+import { RpcClientApp } from '@no0dles/hsr-browser-rpc'
+import { RpcClientFunction } from '@no0dles/hsr-browser-rpc'
+import { ValidationError } from '@no0dles/hsr-browser-rpc'
 
 export function rpcNodeClient<T>(url: string, definition: T): RpcClientApp<T> {
   const client = nodeClient(url)

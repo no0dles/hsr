@@ -1,11 +1,11 @@
 import {PathReporter} from 'io-ts/PathReporter';
 import {RpcServerApp} from './app';
 import {RpcServerHandle} from './handle';
-import { CmdArgument } from '@no0dles/hsr-browser-rpc/cmd-argument'
-import { Cmd } from '@no0dles/hsr-browser-rpc/cmd'
-import { ValidationError } from '@no0dles/hsr-browser-rpc/validation-error'
-import { CmdResult } from '@no0dles/hsr-browser-rpc/cmd-result'
-import { ReturnCmd } from '@no0dles/hsr-browser-rpc/return-cmd'
+import { CmdArgument } from '@no0dles/hsr-browser-rpc'
+import { Cmd } from '@no0dles/hsr-browser-rpc'
+import { ValidationError } from '@no0dles/hsr-browser-rpc'
+import { CmdResult } from '@no0dles/hsr-browser-rpc'
+import { ReturnCmd } from '@no0dles/hsr-browser-rpc'
 
 export interface RpcServer<T> {
   handles: string[];

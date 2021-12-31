@@ -1,6 +1,6 @@
 import {RpcClientFunction} from './function';
 import {RpcClientApp} from './app';
-import { browserClient } from '@no0dles/hsr-browser/browser-client'
+import { browserClient } from '@no0dles/hsr-browser'
 import { ValidationError } from './validation-error'
 
 export function rpcBrowserClient<T>(url: string, definition: T): RpcClientApp<T> {

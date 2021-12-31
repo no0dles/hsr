@@ -3,7 +3,7 @@ import { HttpHandler } from './http-handler'
 import { HttpRequest } from './http-request'
 import { HttpResponse } from './http-response'
 import { HttpMiddlewareContextImpl } from './http-middleware-context-impl'
-import { HttpMethod } from '@no0dles/hsr-browser/http-method'
+import { HttpMethod } from '@no0dles/hsr-browser'
 
 export type PathSegment = { path: string; type: 'path' } | { param: string; type: 'param' } | { type: 'wildcard' }
 

@@ -11,9 +11,6 @@
     "lib": [
       "es6"
     ],
-    "paths": {
-      "@no0dles/hsr-browser/*": ["../../hsr-browser/src/*"]
-    },
     "rootDir": "src",
     "baseUrl": "src",
     "tsBuildInfoFile": "dist/tsbuildinfo"
