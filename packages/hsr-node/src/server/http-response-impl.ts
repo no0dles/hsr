@@ -42,7 +42,7 @@ export class HttpResponseImpl implements HttpResponse {
     } else {
       this.bodyValue = JSON.stringify(value)
     }
-    return this
+    return this.header('Content-Type', 'application/json')
   }
 
   statusCode(number: number): this

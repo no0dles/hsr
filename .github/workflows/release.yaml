@@ -1,7 +1,8 @@
 name: Release npm packages
 on:
-  release:
-    types: [created]
+  push:
+    tags:
+      - v*
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,46 +16,6 @@ jobs:
       - run: npm ci
       - run: lerna bootstrap
       - run: lerna run build
-      - name: Get the version
-        id: get_version
-        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
-      - run: npm version $VERSION --allow-same-version
-        working-directory: packages/hsr-browser
-        env:
-          VERSION: ${{ steps.get_version.outputs.VERSION }}
-      - run: npm version $VERSION --allow-same-version
-        working-directory: packages/hsr-browser-rpc
-        env:
-          VERSION: ${{ steps.get_version.outputs.VERSION }}
-      - run: npm version $VERSION --allow-same-version
-        working-directory: packages/hsr-node
-        env:
-          VERSION: ${{ steps.get_version.outputs.VERSION }}
-      - run: npm version $VERSION --allow-same-version
-        working-directory: packages/hsr-node-rpc
-        env:
-          VERSION: ${{ steps.get_version.outputs.VERSION }}
-      - run: npm version $VERSION --allow-same-version
-        working-directory: packages/hsr-node-static
-        env:
-          VERSION: ${{ steps.get_version.outputs.VERSION }}
-      - run: npm publish
-        working-directory: packages/hsr-browser
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: npm publish
-        working-directory: packages/hsr-browser-rpc
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: npm publish
-        working-directory: packages/hsr-node
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: npm publish
-        working-directory: packages/hsr-node-rpc
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: npm publish
-        working-directory: packages/hsr-node-static
+      - run: lerna publish from-git
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

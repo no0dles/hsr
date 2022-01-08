@@ -71,6 +71,17 @@ export class HttpRequestImpl implements HttpRequest {
     return header
   }
 
+  headers() {
+    const result: { [key: string]: string | string[] } = {};
+    for (const key of Object.keys(this.message.headers)) {
+      const value = this.message.headers[key];
+      if (value) {
+        result[key] = value;
+      }
+    }
+    return result;
+  }
+
   headerAsString(name: string) {
     const header = this.message.headers[name]
     if (!header) {

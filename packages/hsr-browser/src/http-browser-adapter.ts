@@ -43,6 +43,13 @@ export class BrowserHttpAdapter implements HttpAdapter<HttpBrowserClientResponse
       bodyAsBlob(): Promise<Blob> {
         return res.blob()
       },
+      headers(): { [p: string]: string | string[] } {
+        const result: {[key:string]: string | string[] } = {}
+        res.headers.forEach((value, key) => {
+          result[key] = value;
+        })
+        return result;
+      },
       header(name: string): string | string[] | null {
         const headers = res.headers
           .get(name)

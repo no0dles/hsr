@@ -2,12 +2,13 @@ import { HttpPlugin } from '@no0dles/hsr-node'
 import { HttpResponse } from '@no0dles/hsr-node'
 import { RpcServer } from './server'
 import { ValidationError } from '@no0dles/hsr-browser-rpc'
+import {HttpRequest} from '@no0dles/hsr-node/dist/esm';
 
 export interface HttpRpcOptions {
   errorHandler: HttpRpcErrorHandler
 }
 
-export type HttpRpcErrorHandler = (error: unknown, res: HttpResponse) => HttpResponse
+export type HttpRpcErrorHandler = (error: unknown, res: HttpResponse, req: HttpRequest) => HttpResponse
 
 export function buildHttpPlugin(rpcServer: RpcServer<any>, options?: Partial<HttpRpcOptions>): HttpPlugin<any> {
   const errorHandler: HttpRpcErrorHandler = options?.errorHandler ?? ((e, res) => res.statusCode(500))
@@ -27,7 +28,7 @@ export function buildHttpPlugin(rpcServer: RpcServer<any>, options?: Partial<Htt
           }
 
           try {
-            return errorHandler(e, res)
+            return errorHandler(e, res, req)
           } catch (e) {
             return res.statusCode(500)
           }
