@@ -1,10 +1,12 @@
-import {createReadStream, readdirSync, stat} from 'fs';
+import {createReadStream, readdirSync, readFile, stat} from 'fs';
 import {join, extname} from 'path';
 import * as db from 'mime-db';
 import {HttpRequest} from '@no0dles/hsr-node';
 import {HttpHandler} from '@no0dles/hsr-node';
 import {HttpPlugin} from '@no0dles/hsr-node';
 import {HttpResponse} from '@no0dles/hsr-node';
+import {HttpMiddleware} from '@no0dles/hsr-node/dist/esm';
+import {brotliCompress} from 'zlib';
 
 export interface HttpStaticRouterDirectoryOptions {
   rootDir: string;
@@ -12,6 +14,7 @@ export interface HttpStaticRouterDirectoryOptions {
   indexFallback?: boolean;
   exclude?: string[];
   cacheControl?: number;
+  optimize?: boolean;
 }
 
 const mimeTypeByExtension: { [key: string]: string } = {};
@@ -25,8 +28,90 @@ for (const key of Object.keys(db)) {
   }
 }
 
+interface CacheEntry {
+  mimeType: string;
+  contentLength: number;
+  body: Buffer;
+  brotliContentLength: number;
+  brotliBody: Buffer;
+}
+
+function optimizedHandler(entry: FileEntry, options: HttpStaticRouterDirectoryOptions): HttpHandler<HttpRequest, HttpResponse, {}> {
+  const mimeType = getExtension(entry.filename, 'application/octet-stream');
+  const cachePromise = new Promise<CacheEntry>((resolve, reject) => {
+    readFile(entry.absolutePath, (err, body) => {
+      if (err) {
+        reject(err);
+      } else {
+        brotliCompress(body, (err, brotliBody) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve({
+              mimeType,
+              body,
+              contentLength: body.length,
+              brotliBody,
+              brotliContentLength: brotliBody.length,
+            });
+          }
+        });
+      }
+    });
+  });
+
+  return async (req, res) => {
+    const cache = await cachePromise;
+
+    const acceptBrotli = req.hasHeaderValue('accept-encoding', 'br');
+    if (acceptBrotli) {
+      return res
+        .statusCode(200)
+        .header('Content-Type', cache.mimeType)
+        .header('Content-Length', cache.brotliContentLength.toString())
+        .header('Content-Encoding', 'br')
+        .body(cache.brotliBody);
+    } else {
+      return res
+        .statusCode(200)
+        .header('Content-Type', cache.mimeType)
+        .header('Content-Length', cache.contentLength.toString())
+        .body(cache.body);
+    }
+  };
+}
+
+function getDynamicHandler(entry: FileEntry, options: HttpStaticRouterDirectoryOptions): HttpHandler<HttpRequest, HttpResponse, {}> {
+  const mimeType = getExtension(entry.filename, 'application/octet-stream');
+  return (req, res) => {
+    return new Promise<HttpResponse>((resolve, reject) => {
+      stat(entry.absolutePath, (err, stats) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(res
+            .statusCode(200)
+            .header('Content-Type', mimeType)
+            .header('Content-Length', stats.size.toString())
+            .body(createReadStream(entry.absolutePath)));
+        }
+      });
+    });
+  };
+}
+
+const cacheControlMiddleware: (cacheControl: number) => HttpMiddleware<HttpRequest, HttpResponse, HttpRequest, HttpResponse> = cacheControl => async (ctx) => {
+  const res = await ctx.next(ctx.req, ctx.res);
+  if (!res.header('Cache-Control')) {
+    res.header('Cache-Control', `max-age=${cacheControl}`);
+  }
+  return res;
+};
+
 export function staticPlugin(options: HttpStaticRouterDirectoryOptions): HttpPlugin<{}> {
   return (router) => {
+    const cacheRouter = options.cacheControl !== undefined && options.cacheControl !== null ? router.use(cacheControlMiddleware(options.cacheControl)) : router;
+
     const entries = readFilesInDirectory(
       options.rootDir,
       options?.recursive ?? false,
@@ -35,39 +120,17 @@ export function staticPlugin(options: HttpStaticRouterDirectoryOptions): HttpPlu
     );
 
     for (const entry of entries) {
-      const mimeType = getExtension(entry.filename, 'application/octet-stream');
-      const handler: HttpHandler<HttpRequest, HttpResponse, {}> = (req, res) => {
-        return new Promise<HttpResponse>((resolve, reject) => {
+      const handler = options.optimize ? optimizedHandler(entry, options) : getDynamicHandler(entry, options);
 
-          stat(entry.absolutePath, (err, stats) => {
-            if (err) {
-              reject(err);
-            } else {
-              const result = res
-                .statusCode(200)
-                .header('Content-Type', mimeType)
-                .header('Content-Length', stats.size.toString())
-                .body(createReadStream(entry.absolutePath));
-
-              if (options.cacheControl !== null && options.cacheControl !== undefined) {
-                resolve(result.header('Cache-Control', `max-age=${options.cacheControl}`));
-              } else {
-                resolve(result);
-              }
-            }
-          });
-        });
-      };
-
-      router.path(entry.relativePath).get(handler);
+      cacheRouter.path(entry.relativePath).get(handler);
       if (entry.filename === 'index.html') {
         if (options.indexFallback) {
-          router.wildcard().get(handler);
+          cacheRouter.wildcard().get(handler);
         }
-        router.path(entry.paths.join('/')).get(handler);
+        cacheRouter.path(entry.paths.join('/')).get(handler);
       }
     }
-    return router;
+    return cacheRouter;
   };
 }
 
@@ -79,12 +142,19 @@ function getExtension(fileName: string, defaultMime: string): string {
   return mimeTypeByExtension[extension.substr(1)] ?? defaultMime;
 }
 
+interface FileEntry {
+  paths: string[];
+  relativePath: string;
+  absolutePath: string;
+  filename: string;
+}
+
 export function* readFilesInDirectory(
   path: string,
   recursive: boolean,
   exclude: string[],
   currentPath: string[],
-): Generator<{ paths: string[]; relativePath: string; absolutePath: string; filename: string }> {
+): Generator<FileEntry> {
   const entries = readdirSync(path, {withFileTypes: true});
   for (const entry of entries) {
     if (exclude.some((e) => join(path, entry.name) === e)) {
