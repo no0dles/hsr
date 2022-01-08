@@ -4,7 +4,7 @@
     "type": "git",
     "url": "https://github.com/no0dles/hsr"
   },
-  "version": "1.2.22",
+  "version": "1.2.23",
   "license": "MIT",
   "scripts": {
     "build": "npm run build:cjs && npm run build:esm",
@@ -41,8 +41,8 @@
     }
   },
   "dependencies": {
-    "@no0dles/hsr-browser-rpc": "^1.2.22",
-    "@no0dles/hsr-node": "^1.2.22"
+    "@no0dles/hsr-browser-rpc": "^1.2.23",
+    "@no0dles/hsr-node": "^1.2.23"
   },
   "peerDependencies": {
     "fp-ts": ">= 2.9.5",

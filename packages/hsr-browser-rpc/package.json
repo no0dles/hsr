@@ -4,7 +4,7 @@
     "type": "git",
     "url": "https://github.com/no0dles/hsr"
   },
-  "version": "1.2.22",
+  "version": "1.2.23",
   "license": "MIT",
   "main": "dist/cjs/index.js",
   "types": "dist/cjs/index.d.ts",
@@ -36,7 +36,7 @@
     "build:cjs": "tsc --module commonjs --target es2015 --outDir dist/cjs"
   },
   "dependencies": {
-    "@no0dles/hsr-browser": "^1.2.22"
+    "@no0dles/hsr-browser": "^1.2.23"
   },
   "devDependencies": {
     "io-ts": "^2.2.16"
