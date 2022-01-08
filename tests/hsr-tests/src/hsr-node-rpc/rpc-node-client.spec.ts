@@ -1,11 +1,11 @@
 import { type, string } from 'io-ts'
-import { rpcServer } from '@no0dles/hsr-node-rpc/server'
-import { router } from '@no0dles/hsr-node/server/router'
-import { listenHttp } from '@no0dles/hsr-node/server/server'
-import { rpcNodeClient } from '@no0dles/hsr-node-rpc/client'
-import { cmd } from '@no0dles/hsr-browser-rpc/cmd'
-import { buildHttpPlugin } from '@no0dles/hsr-node-rpc/build-http-plugin'
-import { ValidationError } from '@no0dles/hsr-browser-rpc/validation-error'
+import { rpcServer } from '@no0dles/hsr-node-rpc'
+import { router } from '@no0dles/hsr-node'
+import { listenHttp } from '@no0dles/hsr-node'
+import { cmd } from '@no0dles/hsr-browser-rpc'
+import { buildHttpPlugin } from '@no0dles/hsr-node-rpc'
+import { ValidationError } from '@no0dles/hsr-browser-rpc'
+import {rpcNodeClient} from '@no0dles/hsr-node-rpc/client';
 
 describe('rpc', () => {
     it('should execute rpc', async () => {
@@ -28,10 +28,9 @@ describe('rpc', () => {
         const server = await listenHttp(app)
 
         const client = rpcNodeClient('http://localhost:' + (<any>server.address()).port, rpcApp)
-        const resPromise = client.foo.call({
+        const res = await client['foo'].call({
             value: 'test',
         })
-        const res = await resPromise
         expect(res.message).toEqual('footest')
         server.close()
     })

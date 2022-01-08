@@ -4,7 +4,7 @@ on:
     tags:
       - v*
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -16,6 +16,6 @@ jobs:
       - run: npm ci
       - run: lerna bootstrap
       - run: lerna run build
-      - run: lerna publish from-git
+      - run: lerna publish from-git --yes
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
