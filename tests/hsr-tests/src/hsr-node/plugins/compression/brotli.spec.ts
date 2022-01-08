@@ -33,6 +33,16 @@ describe('node/middlewares/brotli', () => {
     await cli.close()
   })
 
+  it('should use brotli and no content length for static', async () => {
+    const app = router().use(brotli());
+    app.plugin(staticPlugin({ rootDir: __dirname }))
+    const cli = nodeClient(app).use(nodeBrotliClient())
+    const res = await cli.get('/main.js')
+    expect(res.statusCode).toEqual(200)
+    expect(res.header('content-length')).toBeNull();
+    await cli.close()
+  })
+
   it('should work in browser', async () => {
     const browser = await puppeteer.launch()
 
