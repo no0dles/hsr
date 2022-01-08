@@ -11,6 +11,7 @@ export interface HttpStaticRouterDirectoryOptions {
   recursive?: boolean;
   indexFallback?: boolean;
   exclude?: string[];
+  cacheControl?: number;
 }
 
 const mimeTypeByExtension: { [key: string]: string } = {};
@@ -42,11 +43,17 @@ export function staticPlugin(options: HttpStaticRouterDirectoryOptions): HttpPlu
             if (err) {
               reject(err);
             } else {
-              resolve(res
+              const result = res
                 .statusCode(200)
                 .header('content-type', mimeType)
                 .header('content-length', stats.size.toString())
-                .body(createReadStream(entry.absolutePath)));
+                .body(createReadStream(entry.absolutePath));
+
+              if (options.cacheControl !== null && options.cacheControl !== undefined) {
+                resolve(result.header('cache-control', `max-age=${options.cacheControl}`));
+              } else {
+                resolve(result);
+              }
             }
           });
         });
