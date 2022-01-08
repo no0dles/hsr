@@ -9,7 +9,7 @@ tasks:
       - hsr-browser:npm:publish
       - hsr-node:npm:publish
       - hsr-node-rpc:npm:publish
-      - hsr-browser:npm:publish
+      - hsr-browser-rpc:npm:publish
       - hsr-node-static:npm:publish
 
   build:
