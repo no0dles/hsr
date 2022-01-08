@@ -9,12 +9,12 @@
     "test": "jest",
     "build": "tsc -b"
   },
-  "version": "1.2.18",
+  "version": "1.2.20",
   "license": "MIT",
   "dependencies": {
-    "@no0dles/hsr-browser-rpc": "^1.2.18",
-    "@no0dles/hsr-node": "^1.2.18",
-    "@no0dles/hsr-node-rpc": "^1.2.18"
+    "@no0dles/hsr-browser-rpc": "^1.2.20",
+    "@no0dles/hsr-node": "^1.2.20",
+    "@no0dles/hsr-node-rpc": "^1.2.20"
   },
   "devDependencies": {
     "@types/jest": "^27.0.3",

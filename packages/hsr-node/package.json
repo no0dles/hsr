@@ -4,7 +4,7 @@
     "type": "git",
     "url": "https://github.com/no0dles/hsr"
   },
-  "version": "1.2.18",
+  "version": "1.2.20",
   "license": "MIT",
   "scripts": {
     "build": "npm run build:cjs && npm run build:esm",
@@ -61,7 +61,7 @@
     }
   },
   "dependencies": {
-    "@no0dles/hsr-browser": "^1.2.18"
+    "@no0dles/hsr-browser": "^1.2.20"
   },
   "devDependencies": {
     "@types/node": "^16.11.10"
