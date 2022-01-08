@@ -32,17 +32,21 @@ export class HttpResponseImpl implements HttpResponse {
     }
   }
 
+  removeHeader(key: string): this {
+    delete this.headerMap[key]
+    return this;
+  }
+
   headers(): { [p: string]: string | string[] } {
     return this.headerMap
   }
 
   json(value: any, pretty?: boolean): this {
     if (pretty) {
-      this.bodyValue = JSON.stringify(value, null, 2)
+      return this.body(JSON.stringify(value, null, 2)).header('Content-Type', 'application/json')
     } else {
-      this.bodyValue = JSON.stringify(value)
+      return this.body(JSON.stringify(value)).header('Content-Type', 'application/json')
     }
-    return this.header('Content-Type', 'application/json')
   }
 
   statusCode(number: number): this

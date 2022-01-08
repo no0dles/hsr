@@ -58,8 +58,10 @@ export function brotli(): HttpMiddleware<HttpRequest, HttpResponse, HttpRequest,
             [constants.BROTLI_PARAM_MODE]: constants.BROTLI_MODE_TEXT,
           },
         })
-
-        return result.header('Content-Encoding', 'br').body(body.pipe(compress))
+        return result
+          .header('Content-Encoding', 'br')
+          .removeHeader('Content-Length')
+          .body(body.pipe(compress))
       }
     } else {
       return result

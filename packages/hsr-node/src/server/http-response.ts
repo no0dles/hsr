@@ -6,6 +6,7 @@ export interface HttpResponse {
   statusCode(): number
 
   header(key: string, value: string | string[]): this
+  removeHeader(key: string): this;
 
   header(key: string): string | string[]
   hasHeader(key: string): boolean
